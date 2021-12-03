@@ -19,3 +19,9 @@ console.log(startTime);
 console.log(submitBtn);
 
 //#endregion
+
+submitBtn.addEventListener("click", planTrip);
+
+function planTrip(){
+    console.log(event.target);
+}
