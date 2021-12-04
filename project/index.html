@@ -9,26 +9,29 @@
 <body>
     <h1>Welcome to the REM Trip Planner</h1>
     <section>
-        <label for="userRole">Select your Role:</label>
-        <select name="userRole" id="userRole">
-            <option value="customer">Customer</option>
-            <option value="admin">Admin</option>
-        </select>
-
-        <label for="startDestination">Start Destination:</label>
-        <select name="startDestination" id="startDestination">
-            <!-- values to be added later / retrieved from API or database -->
-        </select>
-        <label for="endDestination">End Destination:</label>
-        <select name="endDestination" id="endDestination">
-            <!-- values to be added later / retrieved from API or database -->
-        </select>
-
-        <label for="startTime">Starting Time:</label>
-        <input type="datetime-local" name="startTime" id="startTime">
-
-        <button type="submit" id="submitBtn">Submit</button>
         <!-- <form action=""></form> -->
+        <form action="" method="post">
+            <label for="userRole">Select your Role:</label>
+            <select name="userRole" id="userRole">
+                <option value="customer">Customer</option>
+                <option value="admin">Admin</option>
+            </select>
+    
+            <label for="startDestination">Start Destination:</label>
+            <select name="startDestination" id="startDestination">
+                <!-- values to be added later / retrieved from API or database -->
+            </select>
+            <label for="endDestination">End Destination:</label>
+            <select name="endDestination" id="endDestination">
+                <!-- values to be added later / retrieved from API or database -->
+            </select>
+    
+            <label for="startTime">Starting Time:</label>
+            <input type="datetime-local" name="startTime" id="startTime">
+    
+            <button type="submit" id="submitBtn">Submit</button>
+    
+        </form>
     </section>
 </body>
 </html>
