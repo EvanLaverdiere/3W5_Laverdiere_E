@@ -74,10 +74,10 @@ async function fillDestinationLists(){
         stationOption.setAttribute("value", station.Name);
         stationOption.innerHTML = station.Name;
 
-        startDestination.appendChild(stationOption);
-        endDestination.appendChild(stationOption);
+        startDestination.add(stationOption);
+        endDestination.add(stationOption);
 
-        console.log(stationOption);
+        // console.log(stationOption);
 
     }
 }
