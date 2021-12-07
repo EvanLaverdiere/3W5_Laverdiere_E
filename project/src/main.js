@@ -47,7 +47,30 @@ function planTrip(){
 async function getStations(){
     let response = await fetch("http://10.101.0.12:8080/stations/");
     let stations = await response.json();
+    console.log(stations);
     return stations;
 }
 
 let stationsList = getStations();
+
+async function fillDestinationLists(stationsList){
+    // stationsList.forEach(station => {
+    //     let stationOption = document.createElement("option");
+    //     stationOption.setAttribute("value", station.Name);
+
+    //     startDestination.appendChild(stationOption);
+    //     endDestination.appendChild(stationOption);
+    // });
+
+    for (let index = 0; index < stationsList.length; index++) {
+        const station = stationsList[index];
+        let stationOption = document.createElement("option");
+        stationOption.setAttribute("value", station.Name);
+
+        startDestination.appendChild(stationOption);
+        endDestination.appendChild(stationOption);
+
+    }
+}
+
+fillDestinationLists(stationsList);
