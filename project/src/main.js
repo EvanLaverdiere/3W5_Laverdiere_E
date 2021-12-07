@@ -55,9 +55,9 @@ async function getStations(){
     return stations;
 }
 
-let stationsList = getStations();
+// let stationsList = getStations();
 
-async function fillDestinationLists(stationsList){
+async function fillDestinationLists(){
     // stationsList.forEach(station => {
     //     let stationOption = document.createElement("option");
     //     stationOption.setAttribute("value", station.Name);
@@ -66,15 +66,20 @@ async function fillDestinationLists(stationsList){
     //     endDestination.appendChild(stationOption);
     // });
 
+    let stationsList = await getStations();
+
     for (let index = 0; index < stationsList.length; index++) {
         const station = stationsList[index];
         let stationOption = document.createElement("option");
         stationOption.setAttribute("value", station.Name);
+        stationOption.innerHTML = station.Name;
 
         startDestination.appendChild(stationOption);
         endDestination.appendChild(stationOption);
 
+        console.log(stationOption);
+
     }
 }
 
-fillDestinationLists(stationsList);
+fillDestinationLists();
