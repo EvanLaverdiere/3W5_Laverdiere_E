@@ -2,6 +2,10 @@
 
 class Station{
     //To be filled in once more details are available.
+    constructor(stationId, name){
+        this.stationId = stationId;
+        this.name = name;
+    }
 }
 
 //#region Variables
