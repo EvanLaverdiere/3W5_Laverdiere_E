@@ -74,8 +74,11 @@ async function fillDestinationLists(){
         stationOption.setAttribute("value", station.Name);
         stationOption.innerHTML = station.Name;
 
-        startDestination.add(stationOption);
-        endDestination.add(stationOption);
+        let startOption = stationOption;
+        let endOption = stationOption.cloneNode(true);
+
+        startDestination.add(startOption);
+        endDestination.add(endOption);
 
         // console.log(stationOption);
 
