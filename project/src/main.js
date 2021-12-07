@@ -28,4 +28,14 @@ function planTrip(){
     let role = userRole.options[userRole.selectedIndex].value;
 
     console.log(role);
+
+    if(role == "customer"){
+        // do something
+    }
+    else if(role == "admin"){
+        // do something else
+    }
+    else{
+        alert("Role is a required field.");
+    }
 }
