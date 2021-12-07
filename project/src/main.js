@@ -39,3 +39,15 @@ function planTrip(){
         alert("Role is a required field.");
     }
 }
+
+// let stationsList = fetch("http://10.101.0.12:8080/stations/");
+// console.log(stationsList);
+// console.log(stationsList.json());
+
+async function getStations(){
+    let response = await fetch("http://10.101.0.12:8080/stations/");
+    let stations = await response.json();
+    return stations;
+}
+
+let stationsList = getStations();
