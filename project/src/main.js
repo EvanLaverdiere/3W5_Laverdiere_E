@@ -25,7 +25,7 @@ submitBtn.addEventListener("click", planTrip);
 function planTrip(){
     event.preventDefault();
     console.log(event.target);
-    let role = userRole.options[userRole.selectedIndex].text;
+    let role = userRole.options[userRole.selectedIndex].value;
 
     console.log(role);
 }
