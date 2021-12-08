@@ -10,13 +10,13 @@ class Station{
 
 //#region Variables
 
-let userRole = document.getElementById("userRole");
+// let userRole = document.getElementById("userRole");
 let startDestination = document.getElementById("startDestination");
 let endDestination = document.getElementById("endDestination");
 let startTime = document.getElementById("startTime");
 let submitBtn = document.getElementById("submitBtn");
 
-console.log(userRole);
+// console.log(userRole);
 console.log(startDestination);
 console.log(endDestination);
 console.log(startTime);
@@ -30,20 +30,20 @@ async function planTrip(){
     event.preventDefault();
     console.log(event.target);
     if(validateForm()){
-        let role = userRole.options[userRole.selectedIndex].value;
+        // let role = userRole.options[userRole.selectedIndex].value;
         let startStation = startDestination.options[startDestination.selectedIndex].value;
         let endStation = endDestination.options[endDestination.selectedIndex].value;
 
-        console.log("user role: " + role);
+        // console.log("user role: " + role);
         console.log("Starting station: " + startStation);
         console.log("Ending station: " + endStation);
     
-        if(role == "customer"){
-            // do something
-        }
-        else if(role == "admin"){
-            // do something else
-        }
+        // if(role == "customer"){
+        //     // do something
+        // }
+        // else if(role == "admin"){
+        //     // do something else
+        // }
 
         let tripPath = await getPath(startStation, endStation);
         displayPath(tripPath);
@@ -101,11 +101,11 @@ let stationsList = getStations();
 // fillDestinationLists(stationsList);
 
 function validateForm(){
-    let roleInput = userRole.options[userRole.selectedIndex].value;
+    // let roleInput = userRole.options[userRole.selectedIndex].value;
     let startInput = startDestination.options[startDestination.selectedIndex].value;
     let endInput = endDestination.options[endDestination.selectedIndex].value;
 
-    if( roleInput != "" && startInput != "" && endInput != ""){
+    if(startInput != "" && endInput != ""){
         return true;
     }
     else{
