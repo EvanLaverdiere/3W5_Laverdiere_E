@@ -113,7 +113,8 @@ function validateForm(){
 }
 
 async function getPath(start, end){
-    let path = await fetch("http://10.101.0.12:8080/path/" + start + "/" + end);
+    let response = await fetch("http://10.101.0.12:8080/path/" + start + "/" + end);
+    let path = await response.json();
     console.log(path);
     return path;
 }
