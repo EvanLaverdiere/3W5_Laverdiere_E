@@ -46,6 +46,7 @@ async function planTrip(){
         }
 
         let tripPath = await getPath(startStation, endStation);
+        displayPath(tripPath);
     
     }
     else{
@@ -117,4 +118,31 @@ async function getPath(start, end){
     let path = await response.json();
     console.log(path);
     return path;
+}
+
+function displayPath(path){
+    let pathSection = document.createElement("section");
+    let psHeader = document.createElement("h2");
+    psHeader.innerHTML = "Your Route:";
+    pathSection.appendChild(psHeader);
+    
+    let pathTable = document.createElement("table");
+    let ptHeader = document.createElement("tr");
+    let timeHeader = document.createElement("th");
+    let stationHeader = document.createElement("th");
+
+    timeHeader.innerHTML = "Departure/Arrival Time";
+    stationHeader.innerHTML = "Station";
+    ptHeader.appendChild(timeHeader);
+    ptHeader.appendChild(stationHeader);
+
+
+    pathTable.appendChild(ptHeader);
+
+    // fillRows(ptHeader, path);
+
+
+    pathSection.appendChild(pathTable);
+    document.body.appendChild(pathSection);
+
 }
