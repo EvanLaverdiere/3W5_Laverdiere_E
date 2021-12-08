@@ -29,18 +29,21 @@ submitBtn.addEventListener("click", planTrip);
 function planTrip(){
     event.preventDefault();
     console.log(event.target);
-    let role = userRole.options[userRole.selectedIndex].value;
+    if(validateForm()){
+        let role = userRole.options[userRole.selectedIndex].value;
 
-    console.log(role);
-
-    if(role == "customer"){
-        // do something
-    }
-    else if(role == "admin"){
-        // do something else
+        console.log(role);
+    
+        if(role == "customer"){
+            // do something
+        }
+        else if(role == "admin"){
+            // do something else
+        }
+    
     }
     else{
-        alert("Role is a required field.");
+        alert("You are missing required fields.");
     }
 }
 
@@ -89,3 +92,16 @@ async function fillDestinationLists(stationsList){
 }
 let stationsList = getStations();
 // fillDestinationLists(stationsList);
+
+function validateForm(){
+    let roleInput = userRole.options[userRole.selectedIndex].value;
+    let startInput = startDestination.options[startDestination.selectedIndex].value;
+    let endInput = endDestination.options[endDestination.selectedIndex].value;
+
+    if( roleInput != "" && startInput != "" && endInput != ""){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
