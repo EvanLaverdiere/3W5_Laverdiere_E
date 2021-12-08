@@ -26,7 +26,7 @@ console.log(submitBtn);
 
 submitBtn.addEventListener("click", planTrip);
 
-function planTrip(){
+async function planTrip(){
     event.preventDefault();
     console.log(event.target);
     if(validateForm()){
@@ -45,7 +45,7 @@ function planTrip(){
             // do something else
         }
 
-        // let tripPath = await getPath(startStation, endStation);
+        let tripPath = await getPath(startStation, endStation);
     
     }
     else{
@@ -110,4 +110,10 @@ function validateForm(){
     else{
         return false;
     }
+}
+
+async function getPath(start, end){
+    let path = await fetch("http://10.101.0.12:8080/path/" + start + "/" + end);
+    console.log(path);
+    return path;
 }
