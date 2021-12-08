@@ -52,12 +52,15 @@ async function getStations(){
     let response = await fetch("http://10.101.0.12:8080/stations/");
     let stations = await response.json();
     console.log(stations);
+
+    await fillDestinationLists(stations);
+
     return stations;
 }
 
 // let stationsList = getStations();
 
-async function fillDestinationLists(){
+async function fillDestinationLists(stationsList){
     // stationsList.forEach(station => {
     //     let stationOption = document.createElement("option");
     //     stationOption.setAttribute("value", station.Name);
@@ -66,7 +69,7 @@ async function fillDestinationLists(){
     //     endDestination.appendChild(stationOption);
     // });
 
-    let stationsList = await getStations();
+    // let stationsList = await getStations();
 
     for (let index = 0; index < stationsList.length; index++) {
         const station = stationsList[index];
@@ -84,5 +87,5 @@ async function fillDestinationLists(){
 
     }
 }
-
-fillDestinationLists();
+let stationsList = getStations();
+// fillDestinationLists(stationsList);
