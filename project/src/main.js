@@ -139,10 +139,26 @@ function displayPath(path){
 
     pathTable.appendChild(ptHeader);
 
-    // fillRows(ptHeader, path);
+    fillRows(pathTable, path);
 
 
     pathSection.appendChild(pathTable);
     document.body.appendChild(pathSection);
 
+}
+
+function fillRows(table, path){
+    path.forEach(stop => {
+        let row = document.createElement("tr");
+        let timeCol = document.createElement("td");
+        let nameCol = document.createElement("td");
+
+        timeCol.innerHTML = "To be filled";
+        nameCol.innerHTML = stop.Name;
+
+        row.appendChild(timeCol);
+        row.appendChild(nameCol);
+
+        table.appendChild(row);
+    });
 }
