@@ -31,8 +31,12 @@ function planTrip(){
     console.log(event.target);
     if(validateForm()){
         let role = userRole.options[userRole.selectedIndex].value;
+        let startStation = startDestination.options[startDestination.selectedIndex].value;
+        let endStation = endDestination.options[endDestination.selectedIndex].value;
 
-        console.log(role);
+        console.log("user role: " + role);
+        console.log("Starting station: " + startStation);
+        console.log("Ending station: " + endStation);
     
         if(role == "customer"){
             // do something
@@ -40,6 +44,8 @@ function planTrip(){
         else if(role == "admin"){
             // do something else
         }
+
+        // let tripPath = await getPath(startStation, endStation);
     
     }
     else{
