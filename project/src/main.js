@@ -10,7 +10,6 @@ class Station{
 
 //#region Variables
 
-// let userRole = document.getElementById("userRole");
 let startDestination = document.getElementById("startDestination");
 let endDestination = document.getElementById("endDestination");
 let startTime = document.getElementById("startTime");
@@ -30,23 +29,14 @@ async function planTrip(){
     event.preventDefault();
     console.log(event.target);
     if(validateForm()){
-        // let role = userRole.options[userRole.selectedIndex].value;
         let startStation = startDestination.options[startDestination.selectedIndex].value;
         let endStation = endDestination.options[endDestination.selectedIndex].value;
         let departureTime = startTime.value;
 
-        // console.log("user role: " + role);
         console.log("Starting station: " + startStation);
         console.log("Ending station: " + endStation);
         console.log("Departing at: " + departureTime);
     
-        // if(role == "customer"){
-        //     // do something
-        // }
-        // else if(role == "admin"){
-        //     // do something else
-        // }
-
         let tripPath = await getPath(startStation, endStation);
         displayPath(tripPath);
     
@@ -103,7 +93,6 @@ let stationsList = getStations();
 // fillDestinationLists(stationsList);
 
 function validateForm(){
-    // let roleInput = userRole.options[userRole.selectedIndex].value;
     let startInput = startDestination.options[startDestination.selectedIndex].value;
     let endInput = endDestination.options[endDestination.selectedIndex].value;
     let timeInput = startTime.value;
