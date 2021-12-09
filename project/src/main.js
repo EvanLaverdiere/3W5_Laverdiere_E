@@ -25,10 +25,12 @@ console.log(submitBtn);
 
 submitBtn.addEventListener("click", planTrip);
 
+// Function to asynchronously plan out a REM trip between two specified stations.
 async function planTrip(){
     event.preventDefault();
     console.log(event.target);
-    if(validateForm()){
+    if(validateForm()){ // Calls a boolean function to validate the user's input on the submission form.
+        // If it returns true, function logs user's inputs for start destination, end destination, and departure time.
         let startStation = startDestination.options[startDestination.selectedIndex].value;
         let endStation = endDestination.options[endDestination.selectedIndex].value;
         let departureTime = startTime.value;
@@ -37,12 +39,12 @@ async function planTrip(){
         console.log("Ending station: " + endStation);
         console.log("Departing at: " + departureTime);
     
-        let tripPath = await getPath(startStation, endStation);
-        displayPath(tripPath);
+        let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
+        displayPath(tripPath); // Function then calls a function to display details of the trip's path.
     
     }
     else{
-        alert("You are missing required fields.");
+        alert("You are missing required fields.");  // If validateForm() returns false, the user left at least one field of the form unfilled.
     }
 }
 
