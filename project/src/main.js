@@ -33,10 +33,12 @@ async function planTrip(){
         // let role = userRole.options[userRole.selectedIndex].value;
         let startStation = startDestination.options[startDestination.selectedIndex].value;
         let endStation = endDestination.options[endDestination.selectedIndex].value;
+        let departureTime = startTime.value;
 
         // console.log("user role: " + role);
         console.log("Starting station: " + startStation);
         console.log("Ending station: " + endStation);
+        console.log("Departing at: " + departureTime);
     
         // if(role == "customer"){
         //     // do something
@@ -104,8 +106,9 @@ function validateForm(){
     // let roleInput = userRole.options[userRole.selectedIndex].value;
     let startInput = startDestination.options[startDestination.selectedIndex].value;
     let endInput = endDestination.options[endDestination.selectedIndex].value;
+    let timeInput = startTime.value;
 
-    if(startInput != "" && endInput != ""){
+    if(startInput != "" && endInput != "" && timeInput != ""){
         return true;
     }
     else{
