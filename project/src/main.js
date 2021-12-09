@@ -33,11 +33,13 @@ async function planTrip(){
         // If it returns true, function logs user's inputs for start destination, end destination, and departure time.
         let startStation = startDestination.options[startDestination.selectedIndex].value;
         let endStation = endDestination.options[endDestination.selectedIndex].value;
-        let departureTime = startTime.value;
+        let desiredTime = startTime.value;
 
         console.log("Starting station: " + startStation);
         console.log("Ending station: " + endStation);
-        console.log("Departing at: " + departureTime);
+        console.log("Departing at: " + desiredTime);
+
+        let departureTime = await getDeparture(startStation, desiredTime);
     
         let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
         displayPath(tripPath); // Function then calls a function to display details of the trip's path.
@@ -187,4 +189,11 @@ function fillRows(table, path){
 
         // table.appendChild(row);
     });
+}
+
+async function getDeparture(startStation, desiredTime){
+    let response = await fetch("http://10.101.0.12:8080/schedule/" + startStation);
+    let schedule = await response.json();
+    return schedule;
+
 }
