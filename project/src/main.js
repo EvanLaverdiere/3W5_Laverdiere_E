@@ -52,14 +52,16 @@ async function planTrip(){
 // console.log(stationsList);
 // console.log(stationsList.json());
 
+// Function which returns a promise representing an array of all stations on the REM network.
+// Function is called on page load.
 async function getStations(){
-    let response = await fetch("http://10.101.0.12:8080/stations/");
-    let stations = await response.json();
-    console.log(stations);
+    let response = await fetch("http://10.101.0.12:8080/stations/");    // Function gets the Response from this API made by Helen.
+    let stations = await response.json();   // The Response object is then parsed as JSON.
+    console.log(stations);  // The result is logged for posterity...
 
-    await fillDestinationLists(stations);
+    await fillDestinationLists(stations);   // ...and passed to an asynchronous function which fills the destination dropdown lists in the form.
 
-    return stations;
+    return stations;    // The parsed promise is finally returned to the caller.
 }
 
 // let stationsList = getStations();
