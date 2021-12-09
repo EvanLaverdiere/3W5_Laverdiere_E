@@ -142,27 +142,29 @@ function displayPath(path){
 function fillRows(table, path){
     path.forEach((stop, index) => {
         console.log("Current index: " + index);
+        let lastStop = null;
         if(index >= 1){
-            let lastStation = path[index - 1];
-            console.log("Last station was " + lastStation.Name + " on segment " + lastStation.SegmentId);
+            lastStop = path[index - 1];
+            console.log("Last station was " + lastStop.Name + " on segment " + lastStop.SegmentId);
 
-            if(stop.Name != lastStation.Name){
-                let row = document.createElement("tr");
-                let timeCol = document.createElement("td");
-                let nameCol = document.createElement("td");
-        
-                timeCol.innerHTML = "To be filled";
-                nameCol.innerHTML = stop.Name;
-        
-                row.appendChild(timeCol);
-                row.appendChild(nameCol);
-        
-                table.appendChild(row);        
-            }
-            else{
-                console.log("Changing segments.");
-            }
         }
+        if(lastStop == null || stop.Name != lastStop.Name){
+            let row = document.createElement("tr");
+            let timeCol = document.createElement("td");
+            let nameCol = document.createElement("td");
+    
+            timeCol.innerHTML = "To be filled";
+            nameCol.innerHTML = stop.Name;
+    
+            row.appendChild(timeCol);
+            row.appendChild(nameCol);
+    
+            table.appendChild(row);        
+        }
+        else{
+            console.log("Changing segments.");
+        }
+
         // let row = document.createElement("tr");
         // let timeCol = document.createElement("td");
         // let nameCol = document.createElement("td");
