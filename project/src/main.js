@@ -98,13 +98,14 @@ async function fillDestinationLists(stationsList){
 let stationsList = getStations();
 // fillDestinationLists(stationsList);
 
+// Function which validates the user's input on the HTML form. Returns true if all fields are filled, or false otherwise.
 function validateForm(){
     let startInput = startDestination.options[startDestination.selectedIndex].value;
     let endInput = endDestination.options[endDestination.selectedIndex].value;
     let timeInput = startTime.value;
 
     if(startInput != "" && endInput != "" && timeInput != ""){
-        return true;
+        return true;    // Function returns true as long as all three fields of the form have a non-empty value.
     }
     else{
         return false;
