@@ -140,17 +140,39 @@ function displayPath(path){
 }
 
 function fillRows(table, path){
-    path.forEach(stop => {
-        let row = document.createElement("tr");
-        let timeCol = document.createElement("td");
-        let nameCol = document.createElement("td");
+    path.forEach((stop, index) => {
+        console.log("Current index: " + index);
+        if(index >= 1){
+            let lastStation = path[index - 1];
+            console.log("Last station was " + lastStation.Name + " on segment " + lastStation.SegmentId);
 
-        timeCol.innerHTML = "To be filled";
-        nameCol.innerHTML = stop.Name;
+            if(stop.Name != lastStation.Name){
+                let row = document.createElement("tr");
+                let timeCol = document.createElement("td");
+                let nameCol = document.createElement("td");
+        
+                timeCol.innerHTML = "To be filled";
+                nameCol.innerHTML = stop.Name;
+        
+                row.appendChild(timeCol);
+                row.appendChild(nameCol);
+        
+                table.appendChild(row);        
+            }
+            else{
+                console.log("Changing segments.");
+            }
+        }
+        // let row = document.createElement("tr");
+        // let timeCol = document.createElement("td");
+        // let nameCol = document.createElement("td");
 
-        row.appendChild(timeCol);
-        row.appendChild(nameCol);
+        // timeCol.innerHTML = "To be filled";
+        // nameCol.innerHTML = stop.Name;
 
-        table.appendChild(row);
+        // row.appendChild(timeCol);
+        // row.appendChild(nameCol);
+
+        // table.appendChild(row);
     });
 }
