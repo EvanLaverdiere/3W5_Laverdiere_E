@@ -112,10 +112,13 @@ function validateForm(){
     }
 }
 
+// Function which returns a promise representing the path between two stations on the REM network.
+// start is a string representing name of the starting station.
+// end is a string representing name of the end station.
 async function getPath(start, end){
-    let response = await fetch("http://10.101.0.12:8080/path/" + start + "/" + end);
-    let path = await response.json();
-    console.log(path);
+    let response = await fetch("http://10.101.0.12:8080/path/" + start + "/" + end);    // Fetches a response from this API, passing start and end as part of the URL.
+    let path = await response.json();   // Parses the Response object as JSON.
+    console.log(path);  // Logs the resulting array for posterity.
     return path;
 }
 
