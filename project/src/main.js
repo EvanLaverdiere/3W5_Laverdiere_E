@@ -40,6 +40,7 @@ async function planTrip(){
         console.log("Departing at: " + desiredTime);
 
         let departureTime = await getDeparture(startStation, desiredTime);
+        console.log(departureTime);
     
         let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
         displayPath(tripPath); // Function then calls a function to display details of the trip's path.
