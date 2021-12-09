@@ -66,6 +66,7 @@ async function getStations(){
 
 // let stationsList = getStations();
 
+// Function which fills the HTML form's destination lists with names from an array of stations.
 async function fillDestinationLists(stationsList){
     // stationsList.forEach(station => {
     //     let stationOption = document.createElement("option");
@@ -77,16 +78,17 @@ async function fillDestinationLists(stationsList){
 
     // let stationsList = await getStations();
 
+    // Function does the following for each element in the array:
     for (let index = 0; index < stationsList.length; index++) {
         const station = stationsList[index];
-        let stationOption = document.createElement("option");
+        let stationOption = document.createElement("option");   // Creates an <option> element with a value and inner HTML matching the current station's name.
         stationOption.setAttribute("value", station.Name);
         stationOption.innerHTML = station.Name;
 
-        let startOption = stationOption;
+        let startOption = stationOption;    // Clones that <option> into a new, identical <option> element.
         let endOption = stationOption.cloneNode(true);
 
-        startDestination.add(startOption);
+        startDestination.add(startOption);  // The original object is added to one drop-down menu, and its clone is added to the other.
         endDestination.add(endOption);
 
         // console.log(stationOption);
