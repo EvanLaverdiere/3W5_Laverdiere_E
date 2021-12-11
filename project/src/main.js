@@ -168,7 +168,7 @@ function fillRows(table, path, departureTime){
             let timeCol = document.createElement("td");
             let nameCol = document.createElement("td");
     
-            if(index == 0){
+            if(index == 0 || stop.SegmentId != lastStop.SegmentId){
                 timeCol.innerHTML = departureTime.getHours() + ":" + departureTime.getMinutes();
             }
             else{
