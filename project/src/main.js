@@ -223,7 +223,7 @@ async function getDeparture(startStation, desiredTime){
         console.log(time);
         let hour = time.getHours();
         let minute = time.getMinutes();
-        if(hour >= desiredHour && minute >= desiredMinutes){
+        if(hour > desiredHour || (hour = desiredHour && minute >= desiredMinutes)){
             // do something and break out of loop. We want first time that is >= the user's desired time.
             console.log("FOUND IT! Best time is " + time);
             startTime = time;
