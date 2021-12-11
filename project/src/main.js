@@ -41,7 +41,7 @@ async function planTrip(){
 
         let departureTime = await getDeparture(startStation, desiredTime);
         console.log(departureTime);
-        console.log("Type of Time property is " + typeof(departureTime[0].Time));
+        console.log("Type of Time property is " + typeof(departureTime[0].Time));   // These two lines show that both properties are registering as strings rather than any sort of date.
         console.log("Type of desiredTime is " + typeof(desiredTime));
     
         let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
@@ -204,14 +204,32 @@ async function getDeparture(startStation, desiredTime){
     let times = schedules.map(schedule => schedule.Time);
     console.log(times);
 
-    return schedules;
+    let desiredDeparture = new Date(desiredTime);
+    let desiredHour = desiredDeparture.getHours();
+    let desiredMinutes = desiredDeparture.getMinutes();
+    console.log("Desired departure time: " + desiredDeparture);
+    console.log("At the hour of " + desiredHour);
+    console.log("and " + desiredMinutes);
 
     let startTime = null;
 
     for(let i = 0; i < schedules.length; i++){
-        if(schedules[i] >= desiredTime){
-            
+        let time = new Date(schedules[i].Time); // converts the schedule's Time property from a string to an actual date.
+        console.log(time);
+        let hour = time.getHours();
+        let minute = time.getMinutes();
+        if(hour >= desiredHour && minute >= desiredMinutes){
+            // do something and break out of loop. We want first time that is >= the user's desired time.
+            console.log("FOUND IT! Best time is " + time);
+            startTime = time;
+            break;
         }
     }
+
+    console.log("Your starting time is: " + startTime);
+    return schedules;
+
+
+
 
 }
