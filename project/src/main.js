@@ -41,6 +41,8 @@ async function planTrip(){
 
         let departureTime = await getDeparture(startStation, desiredTime);
         console.log(departureTime);
+        console.log("Type of Time property is " + typeof(departureTime[0].Time));
+        console.log("Type of desiredTime is " + typeof(desiredTime));
     
         let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
         displayPath(tripPath); // Function then calls a function to display details of the trip's path.
@@ -194,7 +196,22 @@ function fillRows(table, path){
 
 async function getDeparture(startStation, desiredTime){
     let response = await fetch("http://10.101.0.12:8080/schedule/" + startStation);
-    let schedule = await response.json();
-    return schedule;
+    let schedules = await response.json();
+
+    // let upcomingSchedules = schedules.filter(schedule => schedule.Time.getHours() >= desiredTime.getHours());
+
+    // console.log(upcomingSchedules);
+    let times = schedules.map(schedule => schedule.Time);
+    console.log(times);
+
+    return schedules;
+
+    let startTime = null;
+
+    for(let i = 0; i < schedules.length; i++){
+        if(schedules[i] >= desiredTime){
+            
+        }
+    }
 
 }
