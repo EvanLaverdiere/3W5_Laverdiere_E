@@ -45,7 +45,7 @@ async function planTrip(){
         console.log("Type of desiredTime is " + typeof(desiredTime));
     
         let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
-        displayPath(tripPath); // Function then calls a function to display details of the trip's path.
+        displayPath(tripPath, departureTime); // Function then calls a function to display details of the trip's path.
     
     }
     else{
@@ -127,7 +127,7 @@ async function getPath(start, end){
     return path;
 }
 
-function displayPath(path){
+function displayPath(path, departureTime){
     let pathSection = document.createElement("section");
     let psHeader = document.createElement("h2");
     psHeader.innerHTML = "Your Route:";
@@ -146,7 +146,7 @@ function displayPath(path){
 
     pathTable.appendChild(ptHeader);
 
-    fillRows(pathTable, path);
+    fillRows(pathTable, path, departureTime);
 
 
     pathSection.appendChild(pathTable);
@@ -154,7 +154,7 @@ function displayPath(path){
 
 }
 
-function fillRows(table, path){
+function fillRows(table, path, departureTime){
     path.forEach((stop, index) => {
         console.log("Current index: " + index);
         let lastStop = null;
@@ -168,7 +168,12 @@ function fillRows(table, path){
             let timeCol = document.createElement("td");
             let nameCol = document.createElement("td");
     
-            timeCol.innerHTML = "To be filled";
+            if(index == 0){
+                timeCol.innerHTML = departureTime.getHours() + ":" + departureTime.getMinutes();
+            }
+            else{
+                timeCol.innerHTML = "To be filled";
+            }
             nameCol.innerHTML = stop.Name;
     
             row.appendChild(timeCol);
