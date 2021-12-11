@@ -41,7 +41,7 @@ async function planTrip(){
 
         let departureTime = await getDeparture(startStation, desiredTime);
         console.log(departureTime);
-        console.log("Type of Time property is " + typeof(departureTime[0].Time));   // These two lines show that both properties are registering as strings rather than any sort of date.
+        // console.log("Type of Time property is " + typeof(departureTime[0].Time));   // These two lines show that both properties are registering as strings rather than any sort of date.
         console.log("Type of desiredTime is " + typeof(desiredTime));
     
         let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
@@ -227,7 +227,7 @@ async function getDeparture(startStation, desiredTime){
     }
 
     console.log("Your starting time is: " + startTime);
-    return schedules;
+    return startTime;
 
 
 
