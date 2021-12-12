@@ -195,12 +195,14 @@ async function fillRows(table, path, departureTime){
             }
             else{
                 let speedPromise = await fetch("http://10.101.0.12:8080/averageTrainSpeed");
-                let avgSpeed = await speedPromise.json();
+                let speeds = await speedPromise.json();
+                console.log(speeds);
+                let avgSpeed = speeds[0].AverageSpeed;
                 let distancePromise = await fetch("http://10.101.0.12:8080/distance/" + stop.Name + "/" + lastStop.Name);
                 let distance = await distancePromise.json();
 
-                console.log("Average speed is " + avgSpeed);
-                console.log("Distance between " + stop.Name + " and " + lastStop.Name + " is " + distance + "km/hr.");
+                console.log("Average speed is " + avgSpeed + " km/hr.");
+                console.log("Distance between " + stop.Name + " and " + lastStop.Name + " is " + distance + "km.");
                 timeCol.innerHTML = "To be filled";
             }
             nameCol.innerHTML = stop.Name;
