@@ -198,7 +198,7 @@ async function fillRows(table, path, departureTime){
                 let speeds = await speedPromise.json();
                 console.log(speeds);
                 let avgSpeed = speeds[0].AverageSpeed;
-                let distancePromise = await fetch("http://10.101.0.12:8080/distance/" + stop.Name + "/" + lastStop.Name);
+                let distancePromise = await fetch("http://10.101.0.12:8080/distance/" + lastStop.Name + "/" + stop.Name);
                 let distance = await distancePromise.json();
 
                 console.log("Average speed is " + avgSpeed + " km/hr.");
