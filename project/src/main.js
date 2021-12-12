@@ -199,8 +199,9 @@ async function fillRows(table, path, departureTime){
                 // console.log(speeds);
                 // let avgSpeed = speeds[0].AverageSpeed;
                 let avgSpeed = await getAvgSpeed();
-                let distancePromise = await fetch("http://10.101.0.12:8080/distance/" + lastStop.Name + "/" + stop.Name);
-                let distance = await distancePromise.json();
+                // let distancePromise = await fetch("http://10.101.0.12:8080/distance/" + lastStop.Name + "/" + stop.Name);
+                // let distance = await distancePromise.json();
+                let distance = await getDistance(lastStop, stop);
 
                 console.log("Average speed is " + avgSpeed + " km/hr.");
                 console.log("Distance between " + stop.Name + " and " + lastStop.Name + " is " + distance + "km.");
@@ -271,6 +272,13 @@ async function getAvgSpeed(){
     let speedPromise = await fetch("http://10.101.0.12:8080/averageTrainSpeed");
     let speeds = await speedPromise.json();
     return speeds[0].AverageSpeed;
+}
+
+async function getDistance(lastStop, currentStop){
+    let response = await fetch("http://10.101.0.12:8080/distance/" + lastStop.Name + "/" + currentStop.Name);
+    let distance = await response.json();
+
+    return distance;
 }
 
 function GetTravelTime(distance, speed){
