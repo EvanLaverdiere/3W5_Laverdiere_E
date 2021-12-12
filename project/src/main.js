@@ -53,9 +53,6 @@ async function planTrip(){
     }
 }
 
-// let stationsList = fetch("http://10.101.0.12:8080/stations/");
-// console.log(stationsList);
-// console.log(stationsList.json());
 
 // Function which returns a promise representing an array of all stations on the REM network.
 // Function is called on page load.
@@ -73,15 +70,6 @@ async function getStations(){
 
 // Function which fills the HTML form's destination lists with names from an array of stations.
 async function fillDestinationLists(stationsList){
-    // stationsList.forEach(station => {
-    //     let stationOption = document.createElement("option");
-    //     stationOption.setAttribute("value", station.Name);
-
-    //     startDestination.appendChild(stationOption);
-    //     endDestination.appendChild(stationOption);
-    // });
-
-    // let stationsList = await getStations();
 
     // Function does the following for each element in the array:
     for (let index = 0; index < stationsList.length; index++) {
@@ -185,17 +173,6 @@ function fillRows(table, path, departureTime){
             console.log("Changing segments.");
         }
 
-        // let row = document.createElement("tr");
-        // let timeCol = document.createElement("td");
-        // let nameCol = document.createElement("td");
-
-        // timeCol.innerHTML = "To be filled";
-        // nameCol.innerHTML = stop.Name;
-
-        // row.appendChild(timeCol);
-        // row.appendChild(nameCol);
-
-        // table.appendChild(row);
     });
 }
 
