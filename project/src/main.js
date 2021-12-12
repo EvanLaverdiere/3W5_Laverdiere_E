@@ -143,7 +143,41 @@ function displayPath(path, departureTime){
 }
 
 function fillRows(table, path, departureTime){
-    path.forEach((stop, index) => {
+    // path.forEach((stop, index) => {
+    //     console.log("Current index: " + index);
+    //     let lastStop = null;
+    //     if(index >= 1){
+    //         lastStop = path[index - 1];
+    //         console.log("Last station was " + lastStop.Name + " on segment " + lastStop.SegmentId);
+
+    //     }
+    //     if(lastStop == null || stop.Name != lastStop.Name){
+    //         let row = document.createElement("tr");
+    //         let timeCol = document.createElement("td");
+    //         let nameCol = document.createElement("td");
+    
+    //         if(index == 0 || stop.SegmentId != lastStop.SegmentId){
+    //             timeCol.innerHTML = departureTime.getHours() + ":" + departureTime.getMinutes();
+    //         }
+    //         else{
+    //             timeCol.innerHTML = "To be filled";
+    //         }
+    //         nameCol.innerHTML = stop.Name;
+    
+    //         row.appendChild(timeCol);
+    //         row.appendChild(nameCol);
+    
+    //         table.appendChild(row);        
+    //     }
+    //     else{
+    //         console.log("Changing segments.");
+    //     }
+
+    // });
+
+    for (let index = 0; index < path.length; index++) {
+        const stop = path[index];
+        
         console.log("Current index: " + index);
         let lastStop = null;
         if(index >= 1){
@@ -172,8 +206,7 @@ function fillRows(table, path, departureTime){
         else{
             console.log("Changing segments.");
         }
-
-    });
+    }
 }
 
 async function getDeparture(startStation, desiredTime){
