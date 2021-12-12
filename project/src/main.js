@@ -203,6 +203,10 @@ async function fillRows(table, path, departureTime){
 
                 console.log("Average speed is " + avgSpeed + " km/hr.");
                 console.log("Distance between " + stop.Name + " and " + lastStop.Name + " is " + distance + "km.");
+
+                let travelTime = GetTravelTime(distance, avgSpeed);
+                console.log("Travel time between " + stop.Name + " and " + lastStop.Name + " is " + travelTime);
+
                 timeCol.innerHTML = "To be filled";
             }
             nameCol.innerHTML = stop.Name;
