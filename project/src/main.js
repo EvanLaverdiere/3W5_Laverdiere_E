@@ -257,3 +257,10 @@ async function getDeparture(startStation, desiredTime){
 
 
 }
+
+function GetTravelTime(distance, speed){
+    // time = distance/speed
+    let travelTime = distance / speed;
+
+    return travelTime;
+}
