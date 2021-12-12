@@ -142,7 +142,7 @@ function displayPath(path, departureTime){
 
 }
 
-function fillRows(table, path, departureTime){
+async function fillRows(table, path, departureTime){
     // path.forEach((stop, index) => {
     //     console.log("Current index: " + index);
     //     let lastStop = null;
@@ -194,6 +194,13 @@ function fillRows(table, path, departureTime){
                 timeCol.innerHTML = departureTime.getHours() + ":" + departureTime.getMinutes();
             }
             else{
+                let speedPromise = await fetch("http://10.101.0.12:8080/averageTrainSpeed");
+                let avgSpeed = await speedPromise.json();
+                let distancePromise = await fetch("http://10.101.0.12:8080/distance/" + stop.Name + "/" + lastStop.Name);
+                let distance = await distancePromise.json();
+
+                console.log("Average speed is " + avgSpeed);
+                console.log("Distance between " + stop.Name + " and " + lastStop.Name + " is " + distance + "km/hr.");
                 timeCol.innerHTML = "To be filled";
             }
             nameCol.innerHTML = stop.Name;
