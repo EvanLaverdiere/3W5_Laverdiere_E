@@ -213,6 +213,10 @@ async function fillRows(table, path, departureTime){
                 // realTravelTime.setHours(travelTime);
                 console.log("Real travel time: " + realTravelTime);
 
+                let estimatedArrivalTime = new Date(departureTime.getTime() + realTravelTime.getTime());
+
+                console.log("Estimated arrival time: " + estimatedArrivalTime);
+
                 timeCol.innerHTML = "To be filled";
             }
             nameCol.innerHTML = stop.Name;
