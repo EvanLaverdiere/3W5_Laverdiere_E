@@ -175,6 +175,8 @@ async function fillRows(table, path, departureTime){
 
     // });
 
+    let estimatedArrivalTime = new Date(departureTime.getTime());
+
     for (let index = 0; index < path.length; index++) {
         const stop = path[index];
         
@@ -191,7 +193,7 @@ async function fillRows(table, path, departureTime){
             let nameCol = document.createElement("td");
     
             if(index == 0 || stop.SegmentId != lastStop.SegmentId){
-                timeCol.innerHTML = departureTime.getHours() + ":" + departureTime.getMinutes();
+                timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + estimatedArrivalTime.getMinutes();
             }
             else{
                 // let speedPromise = await fetch("http://10.101.0.12:8080/averageTrainSpeed");
@@ -213,7 +215,7 @@ async function fillRows(table, path, departureTime){
                 // realTravelTime.setHours(travelTime);
                 console.log("Real travel time: " + realTravelTime);
 
-                let estimatedArrivalTime = new Date(departureTime.getTime() + realTravelTime.getTime());
+                estimatedArrivalTime.setTime(estimatedArrivalTime.getTime() + realTravelTime.getTime());
 
                 console.log("Estimated arrival time: " + estimatedArrivalTime);
 
