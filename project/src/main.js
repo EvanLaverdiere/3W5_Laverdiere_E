@@ -217,7 +217,7 @@ async function fillRows(table, path, departureTime){
 
                 console.log("Estimated arrival time: " + estimatedArrivalTime);
 
-                timeCol.innerHTML = "To be filled";
+                timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + estimatedArrivalTime.getMinutes();
             }
             nameCol.innerHTML = stop.Name;
     
