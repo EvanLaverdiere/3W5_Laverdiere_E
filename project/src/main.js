@@ -207,10 +207,10 @@ async function fillRows(table, path, departureTime){
                 console.log("Distance between " + stop.Name + " and " + lastStop.Name + " is " + distance + "km.");
 
                 let travelTime = GetTravelTime(distance, avgSpeed);
-                console.log("Travel time between " + stop.Name + " and " + lastStop.Name + " is " + travelTime);
+                console.log("Travel time between " + stop.Name + " and " + lastStop.Name + " is " + travelTime + " milliseconds");
 
-                let realTravelTime = new Date();
-                realTravelTime.setHours(travelTime);
+                let realTravelTime = new Date(travelTime);
+                // realTravelTime.setHours(travelTime);
                 console.log("Real travel time: " + realTravelTime);
 
                 timeCol.innerHTML = "To be filled";
@@ -287,5 +287,5 @@ function GetTravelTime(distance, speed){
     let timeInMilliseconds = travelTime * (60 * 60 * 1000);
     console.log(travelTime + " hours equals " + timeInMilliseconds + " milliseconds.");
 
-    return travelTime;
+    return timeInMilliseconds;
 }
