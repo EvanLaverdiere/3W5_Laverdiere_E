@@ -143,38 +143,6 @@ function displayPath(path, departureTime){
 }
 
 async function fillRows(table, path, departureTime){
-    // path.forEach((stop, index) => {
-    //     console.log("Current index: " + index);
-    //     let lastStop = null;
-    //     if(index >= 1){
-    //         lastStop = path[index - 1];
-    //         console.log("Last station was " + lastStop.Name + " on segment " + lastStop.SegmentId);
-
-    //     }
-    //     if(lastStop == null || stop.Name != lastStop.Name){
-    //         let row = document.createElement("tr");
-    //         let timeCol = document.createElement("td");
-    //         let nameCol = document.createElement("td");
-    
-    //         if(index == 0 || stop.SegmentId != lastStop.SegmentId){
-    //             timeCol.innerHTML = departureTime.getHours() + ":" + departureTime.getMinutes();
-    //         }
-    //         else{
-    //             timeCol.innerHTML = "To be filled";
-    //         }
-    //         nameCol.innerHTML = stop.Name;
-    
-    //         row.appendChild(timeCol);
-    //         row.appendChild(nameCol);
-    
-    //         table.appendChild(row);        
-    //     }
-    //     else{
-    //         console.log("Changing segments.");
-    //     }
-
-    // });
-
     let estimatedArrivalTime = new Date(departureTime.getTime());
 
     for (let index = 0; index < path.length; index++) {
@@ -196,13 +164,7 @@ async function fillRows(table, path, departureTime){
                 timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
             }
             else{
-                // let speedPromise = await fetch("http://10.101.0.12:8080/averageTrainSpeed");
-                // let speeds = await speedPromise.json();
-                // console.log(speeds);
-                // let avgSpeed = speeds[0].AverageSpeed;
                 let avgSpeed = await getAvgSpeed();
-                // let distancePromise = await fetch("http://10.101.0.12:8080/distance/" + lastStop.Name + "/" + stop.Name);
-                // let distance = await distancePromise.json();
                 let distance = await getDistance(lastStop, stop);
 
                 console.log("Average speed is " + avgSpeed + " km/hr.");
@@ -212,7 +174,6 @@ async function fillRows(table, path, departureTime){
                 console.log("Travel time between " + stop.Name + " and " + lastStop.Name + " is " + travelTime + " milliseconds");
 
                 let realTravelTime = new Date(travelTime);
-                // realTravelTime.setHours(travelTime);
                 console.log("Real travel time: " + realTravelTime);
 
                 estimatedArrivalTime.setTime(estimatedArrivalTime.getTime() + realTravelTime.getTime());
