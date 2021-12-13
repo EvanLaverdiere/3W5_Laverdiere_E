@@ -284,6 +284,7 @@ async function getDistance(lastStop, currentStop){
 function GetTravelTime(distance, speed){
     // time = distance/speed
     let travelTime = distance / speed;
+    let timeInMilliseconds = travelTime * (60 * 60 * 1000);
 
     return travelTime;
 }
