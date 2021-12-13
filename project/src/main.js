@@ -285,6 +285,7 @@ function GetTravelTime(distance, speed){
     // time = distance/speed
     let travelTime = distance / speed;
     let timeInMilliseconds = travelTime * (60 * 60 * 1000);
+    console.log(travelTime + " hours equals " + timeInMilliseconds + " milliseconds.");
 
     return travelTime;
 }
