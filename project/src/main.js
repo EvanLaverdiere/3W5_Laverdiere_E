@@ -195,10 +195,11 @@ async function fillRows(table, path, departureTime){
             row.appendChild(nameCol);
     
             table.appendChild(row);        
+
+            lastSegment = stop.SegmentId;
         }
         else{
             console.log("Changing segments.");
-            lastSegment = lastStop.SegmentId;
             console.log("Last segment was " + lastSegment);
         }
     }
