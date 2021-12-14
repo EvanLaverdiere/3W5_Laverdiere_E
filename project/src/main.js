@@ -160,48 +160,46 @@ async function fillRows(table, path, departureTime){
             console.log("Last station was " + lastStop.Name + " on segment " + lastStop.SegmentId);
 
         }
-        if(lastStop == null || stop.Name != lastStop.Name){
-            let row = document.createElement("tr");
-            let timeCol = document.createElement("td");
-            let nameCol = document.createElement("td");
-    
-            if(index == 0 || (lastSegment != null && stop.SegmentId != lastSegment)){ // found a bug. Second condition never triggers because of how lastStop is being set.
-                // do something with revised getDepartureTime() method
-                estimatedArrivalTime = await getDepartureTime(stop.Name, stop.SegmentId, estimatedArrivalTime);
-                timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
+        let row = document.createElement("tr");
+        let timeCol = document.createElement("td");
+        let nameCol = document.createElement("td");
+
+        if(index == 0 || (lastSegment != null && stop.SegmentId != lastSegment)){ // found a bug. Second condition never triggers because of how lastStop is being set.
+            // do something with revised getDepartureTime() method
+            if(lastSegment != null && stop.SegmentId != lastSegment){
+                console.log("Changing segments. Last segment was " + lastSegment + "; current segment is " + stop.SegmentId + ".");
             }
-            else{
-                let avgSpeed = await getAvgSpeed();
-                let distance = await getDistance(lastStop, stop);
-
-                console.log("Average speed is " + avgSpeed + " km/hr.");
-                console.log("Distance between " + stop.Name + " and " + lastStop.Name + " is " + distance + "km.");
-
-                let travelTime = GetTravelTime(distance, avgSpeed);
-                console.log("Travel time between " + stop.Name + " and " + lastStop.Name + " is " + travelTime + " milliseconds");
-
-                let realTravelTime = new Date(travelTime);
-                console.log("Real travel time: " + realTravelTime);
-
-                estimatedArrivalTime.setTime(estimatedArrivalTime.getTime() + realTravelTime.getTime());
-
-                console.log("Estimated arrival time: " + estimatedArrivalTime);
-
-                timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
-            }
-            nameCol.innerHTML = stop.Name;
-    
-            row.appendChild(timeCol);
-            row.appendChild(nameCol);
-    
-            table.appendChild(row);        
-
-            lastSegment = stop.SegmentId;
+            estimatedArrivalTime = await getDepartureTime(stop.Name, stop.SegmentId, estimatedArrivalTime);
+            timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
         }
         else{
-            console.log("Changing segments.");
-            console.log("Last segment was " + lastSegment);
+            let avgSpeed = await getAvgSpeed();
+            let distance = await getDistance(lastStop, stop);
+
+            console.log("Average speed is " + avgSpeed + " km/hr.");
+            console.log("Distance between " + stop.Name + " and " + lastStop.Name + " is " + distance + "km.");
+
+            let travelTime = GetTravelTime(distance, avgSpeed);
+            console.log("Travel time between " + stop.Name + " and " + lastStop.Name + " is " + travelTime + " milliseconds");
+
+            let realTravelTime = new Date(travelTime);
+            console.log("Real travel time: " + realTravelTime);
+
+            estimatedArrivalTime.setTime(estimatedArrivalTime.getTime() + realTravelTime.getTime());
+
+            console.log("Estimated arrival time: " + estimatedArrivalTime);
+
+            timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
         }
+        nameCol.innerHTML = stop.Name;
+
+        row.appendChild(timeCol);
+        row.appendChild(nameCol);
+
+        table.appendChild(row);        
+
+        lastSegment = stop.SegmentId;
+
     }
 }
 
