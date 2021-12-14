@@ -145,8 +145,8 @@ function displayPath(path, departureTime){
 
 async function fillRows(table, path, departureTime){
     // let estimatedArrivalTime = new Date(departureTime.getTime());
-    let desiredTime = new Date(departureTime);
-    let estimatedArrivalTime;
+    // let desiredTime = new Date(departureTime);
+    let estimatedArrivalTime = new Date(departureTime);
 
     let lastSegment = null;
 
@@ -167,7 +167,7 @@ async function fillRows(table, path, departureTime){
     
             if(index == 0 || (lastSegment != null && stop.SegmentId != lastSegment)){ // found a bug. Second condition never triggers because of how lastStop is being set.
                 // do something with revised getDepartureTime() method
-                estimatedArrivalTime = await getDepartureTime(stop.Name, stop.SegmentId, desiredTime);
+                estimatedArrivalTime = await getDepartureTime(stop.Name, stop.SegmentId, estimatedArrivalTime);
                 timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
             }
             else{
