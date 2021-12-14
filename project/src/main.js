@@ -40,13 +40,13 @@ async function planTrip(){
         console.log("Ending station: " + endStation);
         console.log("Departing at: " + desiredTime);
 
-        let departureTime = await getDeparture(startStation, desiredTime);
-        console.log(departureTime);
-        // console.log("Type of Time property is " + typeof(departureTime[0].Time));   // These two lines show that both properties are registering as strings rather than any sort of date.
-        console.log("Type of desiredTime is " + typeof(desiredTime));
+        // let departureTime = await getDeparture(startStation, desiredTime);
+        // console.log(departureTime);
+        // // console.log("Type of Time property is " + typeof(departureTime[0].Time));   // These two lines show that both properties are registering as strings rather than any sort of date.
+        // console.log("Type of desiredTime is " + typeof(desiredTime));
     
         let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
-        displayPath(tripPath, departureTime); // Function then calls a function to display details of the trip's path.
+        displayPath(tripPath, desiredTime); // Function then calls a function to display details of the trip's path.
     
     }
     else{
@@ -144,7 +144,9 @@ function displayPath(path, departureTime){
 }
 
 async function fillRows(table, path, departureTime){
-    let estimatedArrivalTime = new Date(departureTime.getTime());
+    // let estimatedArrivalTime = new Date(departureTime.getTime());
+    let desiredTime = new Date(departureTime);
+    let estimatedArrivalTime;
 
     for (let index = 0; index < path.length; index++) {
         const stop = path[index];
@@ -162,6 +164,8 @@ async function fillRows(table, path, departureTime){
             let nameCol = document.createElement("td");
     
             if(index == 0 || stop.SegmentId != lastStop.SegmentId){
+                // do something with revised getDepartureTime() method
+                estimatedArrivalTime = await getDepartureTime(stop.Name, stop.SegmentId, desiredTime);
                 timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
             }
             else{
