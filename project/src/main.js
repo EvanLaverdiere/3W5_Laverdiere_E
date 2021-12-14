@@ -245,7 +245,28 @@ async function getDepartureTime(startStation, stationSegment, desiredTime){
     let times = schedules.map(schedule => schedule.Time);
     console.log(times);
 
+    let desiredHour = desiredTime.getHours();
+    let desiredMinutes = desiredTime.getMinutes();
+    console.log("Desired departure time: " + desiredTime);
+    console.log("At the hour of " + desiredHour);
+    console.log("and " + desiredMinutes);
 
+    let departureTime = null;
+
+    for(let i = 0; i < times.length; i++){
+        const time = new Date(times[i]);
+        console.log(time);
+        let hour = time.getHours();
+        let minute = time.getMinutes();
+        if(hour > desiredHour || (hour == desiredHour && minute >= desiredMinutes)){
+            console.log("FOUND IT! Best time is " + time);
+            departureTime = time;
+            break;
+        }
+    }
+
+    console.log("Your starting time is " + departureTime);
+    return departureTime;
 }
 
 async function getAvgSpeed(){
