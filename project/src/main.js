@@ -241,27 +241,32 @@ async function getDeparture(startStation, desiredTime){
 }
 // Revised version of above.
 async function getDepartureTime(startStation, stationSegment, desiredTime){
-    let response = await fetch("http://10.101.0.12:8080/schedule/" + startStation);
+    let response = await fetch("http://10.101.0.12:8080/schedule/" + startStation); // Retrieves an array of all schedules for this station, on all segments.
     let allSchedules = await response.json();
 
-    let schedules = allSchedules.filter(schedule => schedule.SegmentId == stationSegment);
+    let schedules = allSchedules.filter(schedule => schedule.SegmentId == stationSegment);  // filters the array to only include schedules matching the specified segment.
 
-    let times = schedules.map(schedule => schedule.Time);
+    let times = schedules.map(schedule => schedule.Time);   // Separate array consisting of just the Time properties for each schedule.
     console.log(times);
 
+    // Function extracts the hours & minutes of the desired time and logs them for the user's benefit.
     let desiredHour = desiredTime.getHours();
     let desiredMinutes = desiredTime.getMinutes();
     console.log("Desired departure time: " + desiredTime);
     console.log("At the hour of " + desiredHour);
     console.log("and " + desiredMinutes);
 
-    let departureTime = null;
+    let departureTime = null;   // Declare a null variable. This will hold the chosen departure time that will be returned.
 
+    // For every time in the times array, function does the following:
     for(let i = 0; i < times.length; i++){
-        const time = new Date(times[i]);
+        const time = new Date(times[i]);    // Create a Date object from the current array element.
         console.log(time);
-        let hour = time.getHours();
+        let hour = time.getHours(); // Extract its hours and minutes.
         let minute = time.getMinutes();
+        // Compare them to the hours and minutes of the desired time.
+        // When the for loop finds a time where the hour is greater than the desired hour, or the hour is the same but the minutes are greater than or equal to the desired minutes,
+        // it sticks that time into the departureTime variable and breaks out of the loop.
         if(hour > desiredHour || (hour == desiredHour && minute >= desiredMinutes)){
             console.log("FOUND IT! Best time is " + time);
             departureTime = time;
@@ -270,7 +275,7 @@ async function getDepartureTime(startStation, stationSegment, desiredTime){
     }
 
     console.log("Your starting time is " + departureTime);
-    return departureTime;
+    return departureTime;   // The chosen time is then returned to the caller.
 }
 
 // Async function to get the average speed of a train on the REM network.
