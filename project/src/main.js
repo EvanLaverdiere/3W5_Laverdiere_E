@@ -14,6 +14,7 @@ let startDestination = document.getElementById("startDestination");
 let endDestination = document.getElementById("endDestination");
 let startTime = document.getElementById("startTime");
 let submitBtn = document.getElementById("submitBtn");
+let routeSection = document.getElementById("routeSection");
 
 // console.log(userRole);
 console.log(startDestination);
