@@ -148,6 +148,8 @@ async function fillRows(table, path, departureTime){
     let desiredTime = new Date(departureTime);
     let estimatedArrivalTime;
 
+    let lastSegment = null;
+
     for (let index = 0; index < path.length; index++) {
         const stop = path[index];
         
@@ -163,7 +165,7 @@ async function fillRows(table, path, departureTime){
             let timeCol = document.createElement("td");
             let nameCol = document.createElement("td");
     
-            if(index == 0 || stop.SegmentId != lastStop.SegmentId){
+            if(index == 0 || (lastSegment != null && stop.SegmentId != lastSegment)){ // found a bug. Second condition never triggers because of how lastStop is being set.
                 // do something with revised getDepartureTime() method
                 estimatedArrivalTime = await getDepartureTime(stop.Name, stop.SegmentId, desiredTime);
                 timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
@@ -196,6 +198,8 @@ async function fillRows(table, path, departureTime){
         }
         else{
             console.log("Changing segments.");
+            lastSegment = lastStop.SegmentId;
+            console.log("Last segment was " + lastSegment);
         }
     }
 }
