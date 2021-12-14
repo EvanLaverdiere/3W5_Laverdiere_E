@@ -269,12 +269,14 @@ async function getDepartureTime(startStation, stationSegment, desiredTime){
     return departureTime;
 }
 
+// Async function to get the average speed of a train on the REM network.
 async function getAvgSpeed(){
     let speedPromise = await fetch("http://10.101.0.12:8080/averageTrainSpeed");
     let speeds = await speedPromise.json();
     return speeds[0].AverageSpeed;
 }
 
+// Async function to get the distance between two stations on the REM network.
 async function getDistance(lastStop, currentStop){
     let response = await fetch("http://10.101.0.12:8080/distance/" + lastStop.Name + "/" + currentStop.Name);
     let distance = await response.json();
@@ -282,6 +284,7 @@ async function getDistance(lastStop, currentStop){
     return distance;
 }
 
+// Async function to calculate travel time based on a passed distance and speed.
 function GetTravelTime(distance, speed){
     // time = distance/speed
     let travelTime = distance / speed;
