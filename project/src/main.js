@@ -235,6 +235,18 @@ async function getDeparture(startStation, desiredTime){
 
 
 }
+// Revised version of above.
+async function getDepartureTime(startStation, stationSegment, desiredTime){
+    let response = await fetch("http://10.101.0.12:8080/schedule/" + startStation);
+    let allSchedules = await response.json();
+
+    let schedules = allSchedules.filter(schedule => schedule.SegmentId == stationSegment);
+
+    let times = schedules.map(schedule => schedule.Time);
+    console.log(times);
+
+
+}
 
 async function getAvgSpeed(){
     let speedPromise = await fetch("http://10.101.0.12:8080/averageTrainSpeed");
