@@ -130,11 +130,14 @@ async function displayPath(path, departureTime){
     let ptHeader = document.createElement("tr");
     let timeHeader = document.createElement("th");
     let stationHeader = document.createElement("th");
+    let directionHeader = document.createElement("th");
 
     timeHeader.innerHTML = "Departure/Arrival Time";
     stationHeader.innerHTML = "Station";
+    directionHeader.innerHTML = "Direction";
     ptHeader.appendChild(timeHeader);
     ptHeader.appendChild(stationHeader);
+    ptHeader.appendChild(directionHeader);
 
 
     pathTable.appendChild(ptHeader);
@@ -166,6 +169,7 @@ async function fillRows(table, path, departureTime){
         let row = document.createElement("tr");
         let timeCol = document.createElement("td");
         let nameCol = document.createElement("td");
+        let dirCol = document.createElement("td");
 
         if(index == 0 || (lastSegment != null && stop.SegmentId != lastSegment)){ // found a bug. Second condition never triggers because of how lastStop is being set.
             // do something with revised getDepartureTime() method
@@ -195,9 +199,11 @@ async function fillRows(table, path, departureTime){
             timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
         }
         nameCol.innerHTML = stop.Name;
+        dirCol.innerHTML = stop.SegmentName;
 
         row.appendChild(timeCol);
         row.appendChild(nameCol);
+        row.appendChild(dirCol);
 
         table.appendChild(row);        
 
