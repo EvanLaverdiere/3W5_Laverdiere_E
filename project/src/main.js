@@ -205,6 +205,13 @@ async function fillRows(table, path, departureTime){
         row.appendChild(nameCol);
         row.appendChild(dirCol);
 
+        if(index % 2 == 0){
+            row.setAttribute("class", "evenRow");
+        }
+        else{
+            row.setAttribute("class", "oddRow");
+        }
+
         table.appendChild(row);        
 
         lastSegment = stop.SegmentId;
