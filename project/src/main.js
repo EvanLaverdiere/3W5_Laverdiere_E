@@ -358,7 +358,17 @@ async function getExtraInfo(e){
     let stationId = e.target.dataset.id;
 
     let response = await fetch("http://10.101.0.12:8080/stations/" + stationId);
-    let stationInfo = await response.json();
+    let stationsData = await response.json();   // Resolves to an array with a single element.
+    let thisStation = stationsData[0];
 
-    console.log(stationInfo);
+    console.log(thisStation);
+
+    let addressPara = document.createElement("p");
+    addressPara.innerHTML = "Located at " + thisStation.Number + " " + thisStation.StreetName + " in the city of " + thisStation.City;
+
+    let connectionsPara = document.createElement("p");
+    connectionsPara.innerHTML = (thisStation.BusId != null ? "Connects to a bus network" : "No connection to a bus network") + ". " + (thisStation.MetroId != null ? "Connected to a metro network" : "Not connected to a metro network") + ". " + (thisStation.TrainId != null ? "Connected to another train network." : "Not connected to another train network.");
+
+    infoContainer.appendChild(addressPara);
+    infoContainer.appendChild(connectionsPara);
 }
