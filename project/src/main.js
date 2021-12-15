@@ -139,25 +139,11 @@ async function displayPath(path, departureTime){
 
     pathTable.appendChild(ptHeader);
 
-    // try {
-    //     await fillRows(pathTable, path, departureTime);        
-    // } catch (error) {
-    //     throw(error);
-    // }
-
-    // await fillRows(pathTable, path, departureTime);        
+    await fillRows(pathTable, path, departureTime);        
 
 
-    // pathSection.appendChild(pathTable);
-    // document.body.appendChild(pathSection);
-
-    try {
-        await fillRows(pathTable, path, departureTime);        
-        pathSection.appendChild(pathTable);
-        document.body.appendChild(pathSection);
-    } catch (error) {
-        throw(error);
-    }
+    pathSection.appendChild(pathTable);
+    document.body.appendChild(pathSection);
 }
 
 async function fillRows(table, path, departureTime){
@@ -167,61 +153,57 @@ async function fillRows(table, path, departureTime){
 
     let lastSegment = null;
 
-    try {
-        for (let index = 0; index < path.length; index++) {
-            const stop = path[index];
-            
-            console.log("Current index: " + index);
-            let lastStop = null;
-            if(index >= 1){
-                lastStop = path[index - 1];
-                console.log("Last station was " + lastStop.Name + " on segment " + lastStop.SegmentId);
-    
-            }
-            let row = document.createElement("tr");
-            let timeCol = document.createElement("td");
-            let nameCol = document.createElement("td");
-    
-            if(index == 0 || (lastSegment != null && stop.SegmentId != lastSegment)){ // found a bug. Second condition never triggers because of how lastStop is being set.
-                // do something with revised getDepartureTime() method
-                if(lastSegment != null && stop.SegmentId != lastSegment){
-                    console.log("Changing segments. Last segment was " + lastSegment + "; current segment is " + stop.SegmentId + ".");
-                }
-                estimatedArrivalTime = await getDepartureTime(stop.Name, stop.SegmentId, estimatedArrivalTime);
-                timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
-            }
-            else{
-                let avgSpeed = await getAvgSpeed();
-                let distance = await getDistance(lastStop, stop);
-    
-                console.log("Average speed is " + avgSpeed + " km/hr.");
-                console.log("Distance between " + stop.Name + " and " + lastStop.Name + " is " + distance + "km.");
-    
-                let travelTime = GetTravelTime(distance, avgSpeed);
-                console.log("Travel time between " + stop.Name + " and " + lastStop.Name + " is " + travelTime + " milliseconds");
-    
-                let realTravelTime = new Date(travelTime);
-                console.log("Real travel time: " + realTravelTime);
-    
-                estimatedArrivalTime.setTime(estimatedArrivalTime.getTime() + realTravelTime.getTime());
-    
-                console.log("Estimated arrival time: " + estimatedArrivalTime);
-    
-                timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
-            }
-            nameCol.innerHTML = stop.Name;
-    
-            row.appendChild(timeCol);
-            row.appendChild(nameCol);
-    
-            table.appendChild(row);        
-    
-            lastSegment = stop.SegmentId;
-    
+    for (let index = 0; index < path.length; index++) {
+        const stop = path[index];
+        
+        console.log("Current index: " + index);
+        let lastStop = null;
+        if(index >= 1){
+            lastStop = path[index - 1];
+            console.log("Last station was " + lastStop.Name + " on segment " + lastStop.SegmentId);
+
         }
-    } 
-    catch (error) {
-        throw(error);
+        let row = document.createElement("tr");
+        let timeCol = document.createElement("td");
+        let nameCol = document.createElement("td");
+
+        if(index == 0 || (lastSegment != null && stop.SegmentId != lastSegment)){ // found a bug. Second condition never triggers because of how lastStop is being set.
+            // do something with revised getDepartureTime() method
+            if(lastSegment != null && stop.SegmentId != lastSegment){
+                console.log("Changing segments. Last segment was " + lastSegment + "; current segment is " + stop.SegmentId + ".");
+            }
+            estimatedArrivalTime = await getDepartureTime(stop.Name, stop.SegmentId, estimatedArrivalTime);
+            timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
+        }
+        else{
+            let avgSpeed = await getAvgSpeed();
+            let distance = await getDistance(lastStop, stop);
+
+            console.log("Average speed is " + avgSpeed + " km/hr.");
+            console.log("Distance between " + stop.Name + " and " + lastStop.Name + " is " + distance + "km.");
+
+            let travelTime = GetTravelTime(distance, avgSpeed);
+            console.log("Travel time between " + stop.Name + " and " + lastStop.Name + " is " + travelTime + " milliseconds");
+
+            let realTravelTime = new Date(travelTime);
+            console.log("Real travel time: " + realTravelTime);
+
+            estimatedArrivalTime.setTime(estimatedArrivalTime.getTime() + realTravelTime.getTime());
+
+            console.log("Estimated arrival time: " + estimatedArrivalTime);
+
+            timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
+        }
+        nameCol.innerHTML = stop.Name;
+
+        row.appendChild(timeCol);
+        row.appendChild(nameCol);
+
+        table.appendChild(row);        
+
+        lastSegment = stop.SegmentId;
+
+
     }
 }
 
