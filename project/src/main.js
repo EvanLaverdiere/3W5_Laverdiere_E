@@ -45,8 +45,12 @@ async function planTrip(){
         // // console.log("Type of Time property is " + typeof(departureTime[0].Time));   // These two lines show that both properties are registering as strings rather than any sort of date.
         // console.log("Type of desiredTime is " + typeof(desiredTime));
     
-        let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
-        displayPath(tripPath, desiredTime); // Function then calls a function to display details of the trip's path.
+        try {
+            let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
+            displayPath(tripPath, desiredTime); // Function then calls a function to display details of the trip's path.                
+        } catch (error) {
+            console.log(error);
+        }
     
     }
     else{
@@ -277,8 +281,13 @@ async function getDepartureTime(startStation, stationSegment, desiredTime){
         }
     }
 
-    console.log("Your starting time is " + departureTime);
-    return departureTime;   // The chosen time is then returned to the caller.
+    if(departureTime != null){
+        console.log("Your starting time is " + departureTime);
+        return departureTime;   // The chosen time is then returned to the caller.    
+    }
+    else{
+        throw("No departures from this station at or after the specified time.");
+    }
 }
 
 // Async function to get the average speed of a train on the REM network.
