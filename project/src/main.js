@@ -132,13 +132,16 @@ async function displayPath(path, departureTime){
     let timeHeader = document.createElement("th");
     let stationHeader = document.createElement("th");
     let directionHeader = document.createElement("th");
+    let extraHeader = document.createElement("th");
 
     timeHeader.innerHTML = "Departure/Arrival Time";
     stationHeader.innerHTML = "Station";
     directionHeader.innerHTML = "Direction";
+    extraHeader.innerHTML = "Information";
     ptHeader.appendChild(timeHeader);
     ptHeader.appendChild(stationHeader);
     ptHeader.appendChild(directionHeader);
+    ptHeader.appendChild(extraHeader);
 
 
     pathTable.appendChild(ptHeader);
@@ -172,6 +175,7 @@ async function fillRows(tBody, path, departureTime){
         let timeCol = document.createElement("td");
         let nameCol = document.createElement("td");
         let dirCol = document.createElement("td");
+        let extraCol = document.createElement("td");
 
         if(index == 0 || (lastSegment != null && stop.SegmentId != lastSegment)){ // found a bug. Second condition never triggers because of how lastStop is being set.
             // do something with revised getDepartureTime() method
@@ -203,9 +207,14 @@ async function fillRows(tBody, path, departureTime){
         nameCol.innerHTML = stop.Name;
         dirCol.innerHTML = stop.SegmentName;
 
+        let infoButton = getInfoButton();
+
+        extraCol.appendChild(infoButton);
+
         row.appendChild(timeCol);
         row.appendChild(nameCol);
         row.appendChild(dirCol);
+        row.appendChild(extraCol);
 
         if(index % 2 == 0){
             row.setAttribute("class", "evenRow");
@@ -328,4 +337,12 @@ function GetTravelTime(distance, speed){
     console.log(travelTime + " hours equals " + timeInMilliseconds + " milliseconds.");
 
     return timeInMilliseconds;
+}
+
+function getInfoButton(){
+    let infoButton = document.createElement("button");
+    infoButton.innerHTML = "Click for more information";
+    infoButton.setAttribute("class", "infoButton");
+
+    return infoButton;
 }
