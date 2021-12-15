@@ -47,7 +47,7 @@ async function planTrip(){
     
         try {
             let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
-            displayPath(tripPath, desiredTime); // Function then calls a function to display details of the trip's path.                
+            await displayPath(tripPath, desiredTime); // Function then calls a function to display details of the trip's path.                
         } catch (error) {
             console.log(error);
         }
@@ -120,7 +120,7 @@ async function getPath(start, end){
     return path;
 }
 
-function displayPath(path, departureTime){
+async function displayPath(path, departureTime){
     let pathSection = document.createElement("section");
     let psHeader = document.createElement("h2");
     psHeader.innerHTML = "Your Route:";
@@ -139,16 +139,25 @@ function displayPath(path, departureTime){
 
     pathTable.appendChild(ptHeader);
 
+    // try {
+    //     await fillRows(pathTable, path, departureTime);        
+    // } catch (error) {
+    //     throw(error);
+    // }
+
+    // await fillRows(pathTable, path, departureTime);        
+
+
+    // pathSection.appendChild(pathTable);
+    // document.body.appendChild(pathSection);
+
     try {
-        fillRows(pathTable, path, departureTime);        
+        await fillRows(pathTable, path, departureTime);        
+        pathSection.appendChild(pathTable);
+        document.body.appendChild(pathSection);
     } catch (error) {
         throw(error);
     }
-
-
-    pathSection.appendChild(pathTable);
-    document.body.appendChild(pathSection);
-
 }
 
 async function fillRows(table, path, departureTime){
@@ -212,7 +221,7 @@ async function fillRows(table, path, departureTime){
         }
     } 
     catch (error) {
-        alert(error);
+        throw(error);
     }
 }
 
