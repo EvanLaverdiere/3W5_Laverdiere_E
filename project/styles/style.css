@@ -22,3 +22,15 @@ table{
     border-width: 5px;
     border-color: hotpink;
 }
+tbody > tr{
+    border: solid 2px coral;
+}
+
+.evenRow{
+    background-color: cyan;
+}
+
+.oddRow{
+    background-color: darkcyan;
+    color: white;
+}
