@@ -19,9 +19,14 @@ form{
 table{
     max-width: 80%;
     margin: auto;
-    border-width: 5px;
-    border-color: hotpink;
+    /* border-width: 5px;
+    border-color: hotpink; */
 }
+
+table, th, td{
+    border: 1px solid coral;
+}
+
 tbody > tr{
     border: solid 2px coral;
 }
