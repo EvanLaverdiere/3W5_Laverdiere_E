@@ -207,9 +207,11 @@ async function fillRows(tBody, path, departureTime){
         nameCol.innerHTML = stop.Name;
         dirCol.innerHTML = stop.SegmentName;
 
-        let infoButton = getInfoButton();
+        let infoButton = getInfoButton(stop.StationId);
 
         extraCol.appendChild(infoButton);
+
+        // infoButton.addEventListener("click", getExtraInfo);
 
         row.appendChild(timeCol);
         row.appendChild(nameCol);
@@ -339,10 +341,11 @@ function GetTravelTime(distance, speed){
     return timeInMilliseconds;
 }
 
-function getInfoButton(){
+function getInfoButton(stationId){
     let infoButton = document.createElement("button");
     infoButton.innerHTML = "Click for more information";
     infoButton.setAttribute("class", "infoButton");
+    infoButton.setAttribute("data-id", stationId);
 
     return infoButton;
 }
