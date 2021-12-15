@@ -364,11 +364,7 @@ async function getExtraInfo(e){
     console.log(thisStation);
 
     let addressPara = document.createElement("p");
-<<<<<<< HEAD
     addressPara.innerHTML = "Located at " + thisStation.Number + " " + thisStation.StreetName + " in the city of " + thisStation.City + ".";
-=======
-    addressPara.innerHTML = "Located at " + thisStation.Number + " " + thisStation.StreetName + " in the city of " + thisStation.City;
->>>>>>> bb274bee7234e07a1ee9638c8a0b021b21cbb0fa
 
     let connectionsPara = document.createElement("p");
     connectionsPara.innerHTML = (thisStation.BusId != null ? "Connects to a bus network" : "No connection to a bus network") + ". " + (thisStation.MetroId != null ? "Connected to a metro network" : "Not connected to a metro network") + ". " + (thisStation.TrainId != null ? "Connected to another train network." : "Not connected to another train network.");
