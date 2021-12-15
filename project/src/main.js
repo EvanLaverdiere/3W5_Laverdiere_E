@@ -211,7 +211,7 @@ async function fillRows(tBody, path, departureTime){
 
         extraCol.appendChild(infoButton);
 
-        // infoButton.addEventListener("click", getExtraInfo);
+        infoButton.addEventListener("click", getExtraInfo);
 
         row.appendChild(timeCol);
         row.appendChild(nameCol);
@@ -348,4 +348,17 @@ function getInfoButton(stationId){
     infoButton.setAttribute("data-id", stationId);
 
     return infoButton;
+}
+
+async function getExtraInfo(e){
+    console.log(e.target);
+
+    let infoContainer = e.target.parentNode;
+
+    let stationId = e.target.dataset.id;
+
+    let response = await fetch("http://10.101.0.12:8080/stations/" + stationId);
+    let stationInfo = await response.json();
+
+    console.log(stationInfo);
 }
