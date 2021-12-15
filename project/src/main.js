@@ -127,6 +127,7 @@ async function displayPath(path, departureTime){
     pathSection.appendChild(psHeader);
     
     let pathTable = document.createElement("table");
+    let ptBody = document.createElement("tbody");
     let ptHeader = document.createElement("tr");
     let timeHeader = document.createElement("th");
     let stationHeader = document.createElement("th");
@@ -142,14 +143,15 @@ async function displayPath(path, departureTime){
 
     pathTable.appendChild(ptHeader);
 
-    await fillRows(pathTable, path, departureTime);        
+    await fillRows(ptBody, path, departureTime);        
 
 
+    pathTable.appendChild(ptBody);
     pathSection.appendChild(pathTable);
     document.body.appendChild(pathSection);
 }
 
-async function fillRows(table, path, departureTime){
+async function fillRows(tBody, path, departureTime){
     // let estimatedArrivalTime = new Date(departureTime.getTime());
     // let desiredTime = new Date(departureTime);
     let estimatedArrivalTime = new Date(departureTime);
@@ -212,7 +214,7 @@ async function fillRows(table, path, departureTime){
             row.setAttribute("class", "oddRow");
         }
 
-        table.appendChild(row);        
+        tBody.appendChild(row);        
 
         lastSegment = stop.SegmentId;
 
