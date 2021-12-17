@@ -133,15 +133,18 @@ async function displayPath(path, departureTime){
     let stationHeader = document.createElement("th");
     let directionHeader = document.createElement("th");
     let extraHeader = document.createElement("th");
+    let notifHeader = document.createElement("th");
 
     timeHeader.innerHTML = "Departure/Arrival Time";
     stationHeader.innerHTML = "Station";
     directionHeader.innerHTML = "Direction";
     extraHeader.innerHTML = "Information";
+    notifHeader.innerHTML = "Notifications";
     ptHeader.appendChild(timeHeader);
     ptHeader.appendChild(stationHeader);
     ptHeader.appendChild(directionHeader);
     ptHeader.appendChild(extraHeader);
+    ptHeader.appendChild(notifHeader);
 
 
     pathTable.appendChild(ptHeader);
@@ -176,6 +179,7 @@ async function fillRows(tBody, path, departureTime){
         let nameCol = document.createElement("td");
         let dirCol = document.createElement("td");
         let extraCol = document.createElement("td");
+        let notifCol = document.createElement("td");
 
         if(index == 0 || (lastSegment != null && stop.SegmentId != lastSegment)){ // found a bug. Second condition never triggers because of how lastStop is being set.
             // do something with revised getDepartureTime() method
@@ -213,10 +217,13 @@ async function fillRows(tBody, path, departureTime){
 
         infoButton.addEventListener("click", getExtraInfo);
 
+        notifCol.innerHTML = await getNotifications(stop.StationId);
+
         row.appendChild(timeCol);
         row.appendChild(nameCol);
         row.appendChild(dirCol);
         row.appendChild(extraCol);
+        row.appendChild(notifCol);
 
         if(index % 2 == 0){
             row.setAttribute("class", "evenRow");
