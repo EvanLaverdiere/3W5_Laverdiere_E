@@ -233,45 +233,6 @@ async function fillRows(tBody, path, departureTime){
     }
 }
 
-// async function getDeparture(startStation, desiredTime){
-//     let response = await fetch("http://10.101.0.12:8080/schedule/" + startStation);
-//     let schedules = await response.json();
-
-//     // let upcomingSchedules = schedules.filter(schedule => schedule.Time.getHours() >= desiredTime.getHours());
-
-//     // console.log(upcomingSchedules);
-//     let times = schedules.map(schedule => schedule.Time);
-//     console.log(times);
-
-//     let desiredDeparture = new Date(desiredTime);
-//     let desiredHour = desiredDeparture.getHours();
-//     let desiredMinutes = desiredDeparture.getMinutes();
-//     console.log("Desired departure time: " + desiredDeparture);
-//     console.log("At the hour of " + desiredHour);
-//     console.log("and " + desiredMinutes);
-
-//     let startTime = null;
-
-//     for(let i = 0; i < schedules.length; i++){
-//         let time = new Date(schedules[i].Time); // converts the schedule's Time property from a string to an actual date.
-//         console.log(time);
-//         let hour = time.getHours();
-//         let minute = time.getMinutes();
-//         if(hour > desiredHour || (hour == desiredHour && minute >= desiredMinutes)){
-//             // do something and break out of loop. We want first time that is >= the user's desired time.
-//             console.log("FOUND IT! Best time is " + time);
-//             startTime = time;
-//             break;
-//         }
-//     }
-
-//     console.log("Your starting time is: " + startTime);
-//     return startTime;
-
-
-
-
-// }
 // Revised version of above.
 async function getDepartureTime(startStation, stationSegment, desiredTime){
     let response = await fetch("http://10.101.0.12:8080/schedule/" + startStation); // Retrieves an array of all schedules for this station, on all segments.
