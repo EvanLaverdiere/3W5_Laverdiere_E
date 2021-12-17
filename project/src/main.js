@@ -353,3 +353,10 @@ async function removeExtraInfo(e){
     e.target.innerHTML = "Click for more information";
     e.target.addEventListener("click", getExtraInfo);
 }
+
+async function getNotifications(stationId){
+    let response = await fetch("http://10.101.0.12:8080/notifications/" + stationId);
+    let notificationResponse = await response.json();
+
+    console.log(notificationResponse);
+}
