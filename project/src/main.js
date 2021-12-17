@@ -371,4 +371,7 @@ async function getExtraInfo(e){
 
     infoContainer.appendChild(addressPara);
     infoContainer.appendChild(connectionsPara);
+
+    e.target.removeEventListener("click", getExtraInfo);
+    e.target.innerHTML = "Click to close.";
 }
