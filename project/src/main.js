@@ -363,7 +363,21 @@ async function removeExtraInfo(e){
 
 async function getNotifications(stationId){
     let response = await fetch("http://10.101.0.12:8080/notifications/" + stationId);
-    let notificationResponse = await response.json();
+    let notificationsArray = await response.json(); //resolves to an array of notifications.
 
-    console.log(notificationResponse);
+    console.log(notificationsArray);
+
+    if(notificationsArray.length > 0){
+        for(let i = 0; i < notificationsArray.length; i ++){
+            const notification = notificationsArray[i];
+            console.log(notification);
+
+            let notiPara = document.createElement("p");
+            notiPara.innerHTML = notification.Description;
+            console.log(notiPara);
+        }
+    }
+    else{
+        return "N/A";
+    }
 }
