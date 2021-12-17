@@ -374,4 +374,21 @@ async function getExtraInfo(e){
 
     e.target.removeEventListener("click", getExtraInfo);
     e.target.innerHTML = "Click to close.";
+    e.target.addEventListener("click", removeExtraInfo);
+}
+
+async function removeExtraInfo(e){
+    let infoContainer = e.target.parentNode;
+    let infoParas = infoContainer.getElementsByTagName("p");
+
+    console.log("Info paragraphs: " + infoParas);
+    console.log(infoContainer);
+
+    for(let i = infoParas.length -1; i >= 0; i--){
+        infoParas[i].remove();
+    }
+
+    e.target.removeEventListener("click", removeExtraInfo);
+    e.target.innerHTML = "Click for more information";
+    e.target.addEventListener("click", getExtraInfo);
 }
