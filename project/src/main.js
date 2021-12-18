@@ -47,7 +47,9 @@ async function planTrip(){
     
         try {
             let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
-            await displayPath(tripPath, desiredTime); // Function then calls a function to display details of the trip's path.                
+            await displayPath(tripPath, desiredTime); // Function then calls a function to display details of the trip's path. 
+            let externalTest = await getStationByName(endStation);
+            console.log(externalTest);               
         } catch (error) {
             alert(error);
         }
@@ -403,5 +405,35 @@ async function getNotifications(stationId){
     }
     else{
         return "N/A";   // If the Notifications array is empty, function returns a string indication that no notifications are applicable for this station.
+    }
+}
+
+async function getExternalData(){
+    let APIKey = "lPWmEWrO0gUAFIxqQcq9df4R06UtjXvD";
+    let pSResponse = await fetch("http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + APIKey + "&q=");
+}
+
+async function getStationByName(stationName){
+    let response = await fetch("http://10.101.0.12:8080/stations");
+    let allStations = await response.json();
+
+    let desiredId;
+    let desiredStation = null;
+
+    for(let i = 1; i < allStations.length; i++){
+        const station = allStations[i];
+        if(station.Name == stationName){
+            desiredId = station.StationId;
+            break;
+        }
+    }
+
+    if(desiredId != null){
+        desiredResponse = await fetch("http://10.101.0.12:8080/stations/" + desiredId);
+        let desiredStation = desiredResponse.json();
+        return desiredStation[0];
+    }
+    else{
+        return "Station not found."
     }
 }
