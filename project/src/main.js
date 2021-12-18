@@ -376,28 +376,32 @@ async function removeExtraInfo(e){
     e.target.addEventListener("click", getExtraInfo);
 }
 
+// Async function which retrieves any notifications currently in effect for a given station.
+// Returns a Div with one or more paragraphs if notifications were found, or a string otherwise.
 async function getNotifications(stationId){
-    let response = await fetch("http://10.101.0.12:8080/notifications/" + stationId);
+    let response = await fetch("http://10.101.0.12:8080/notifications/" + stationId);   // Sends a fetch request to the notifications API, passing the station's ID as argument.
     let notificationsArray = await response.json(); //resolves to an array of notifications.
 
-    console.log(notificationsArray);
+    console.log(notificationsArray);    // Logs the array for user's benefit.
 
     if(notificationsArray.length > 0){
-        let notiDiv = document.createElement("div");
+        // If the array has at least one element (i.e., at least one notification), function does the following:
+        let notiDiv = document.createElement("div");    // It creates an empty div element to store the upcoming information.
 
+        // For each notification in the array...
         for(let i = 0; i < notificationsArray.length; i ++){
-            const notification = notificationsArray[i];
+            const notification = notificationsArray[i]; // The function grabs and logs the Notification object...
             console.log(notification);
 
-            let notiPara = document.createElement("p");
-            notiPara.innerHTML = notification.Description;
+            let notiPara = document.createElement("p"); // ...creates an empty paragraph element...
+            notiPara.innerHTML = notification.Description;  // ...and fills that paragraph with the contents of the Notification's Description property.
             console.log(notiPara);
-            notiDiv.appendChild(notiPara);
+            notiDiv.appendChild(notiPara);  // It then appends the new paragraph to the div.
         }
-        console.log(notiDiv);
+        console.log(notiDiv);   // Once all notification descriptions have been added to the div, function returns the div to the caller.
         return notiDiv;
     }
     else{
-        return "N/A";
+        return "N/A";   // If the Notifications array is empty, function returns a string indication that no notifications are applicable for this station.
     }
 }
