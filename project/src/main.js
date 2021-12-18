@@ -357,19 +357,22 @@ async function getExtraInfo(e){
     e.target.addEventListener("click", removeExtraInfo);    // ...and adds a new eventListener which will remove this extra information when the button is clicked.
 }
 
+// Async eventListener function which removes extraneous station information from its corresponding cell of the table.
+// Called only when the corresponding button has been clicked and only if the cell has already been filled with this information.
 async function removeExtraInfo(e){
-    let infoContainer = e.target.parentNode;
-    let infoParas = infoContainer.getElementsByTagName("p");
+    let infoContainer = e.target.parentNode;    // First, the function grabs the containing td element.
+    let infoParas = infoContainer.getElementsByTagName("p");    // Then it grabs all paragraphs within the td.
 
     console.log("Info paragraphs: " + infoParas);
     console.log(infoContainer);
 
+    // It then removes the paragraphs one by one, working backwards from the last one [a necessity for HTMLCollections, as I learned with the Rockets API assignment].
     for(let i = infoParas.length -1; i >= 0; i--){
-        infoParas[i].remove();
+        infoParas[i].remove(); 
     }
 
-    e.target.removeEventListener("click", removeExtraInfo);
-    e.target.innerHTML = "Click for more information";
+    e.target.removeEventListener("click", removeExtraInfo); // Once all paragraphs have been removed, the function removes its own eventListener.
+    e.target.innerHTML = "Click for more information";  // It then restores the button's original text and original eventListener.
     e.target.addEventListener("click", getExtraInfo);
 }
 
