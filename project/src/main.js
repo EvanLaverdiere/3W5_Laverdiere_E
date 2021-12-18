@@ -317,6 +317,8 @@ function GetTravelTime(distance, speed){
     return timeInMilliseconds;
 }
 
+// Function which creates and returns a clickable button, with a dataset id attribute based on a passed station ID.
+// Button will be used to trigger certain functions via eventListeners.
 function getInfoButton(stationId){
     let infoButton = document.createElement("button");
     infoButton.innerHTML = "Click for more information";
@@ -326,31 +328,33 @@ function getInfoButton(stationId){
     return infoButton;
 }
 
+// Async function to retrieve and display extra information about a given station.
+// Called when the station's corresponding info button is clicked.
 async function getExtraInfo(e){
-    console.log(e.target);
+    console.log(e.target);  // Function logs the target button for user's convenience.
 
-    let infoContainer = e.target.parentNode;
+    let infoContainer = e.target.parentNode; // Function grabs the button's containing td element.
 
-    let stationId = e.target.dataset.id;
+    let stationId = e.target.dataset.id;    // Then it grabs the station's ID from the button's data-id attribute.
 
-    let response = await fetch("http://10.101.0.12:8080/stations/" + stationId);
+    let response = await fetch("http://10.101.0.12:8080/stations/" + stationId);    // Function sends a fetch request to the stations API, passing the ID.
     let stationsData = await response.json();   // Resolves to an array with a single element.
-    let thisStation = stationsData[0];
+    let thisStation = stationsData[0];          // Picks out the station's element for ease of access.
 
     console.log(thisStation);
 
-    let addressPara = document.createElement("p");
+    let addressPara = document.createElement("p");  // Function then creates a paragraph and fills it with information about the station's location, taken from the station object.
     addressPara.innerHTML = "Located at " + thisStation.Number + " " + thisStation.StreetName + " in the city of " + thisStation.City + ".";
 
-    let connectionsPara = document.createElement("p");
+    let connectionsPara = document.createElement("p");  // Then it creates a second paragraph and fills it with information about the station's inter-network connectivity (i.e., connection [or lack thereof] to bus/metro/train networks).
     connectionsPara.innerHTML = (thisStation.BusId != null ? "Connects to a bus network" : "No connection to a bus network") + ". " + (thisStation.MetroId != null ? "Connected to a metro network" : "Not connected to a metro network") + ". " + (thisStation.TrainId != null ? "Connected to another train network." : "Not connected to another train network.");
 
-    infoContainer.appendChild(addressPara);
+    infoContainer.appendChild(addressPara); // Both paragraphs are then appended to the td element.
     infoContainer.appendChild(connectionsPara);
 
-    e.target.removeEventListener("click", getExtraInfo);
-    e.target.innerHTML = "Click to close.";
-    e.target.addEventListener("click", removeExtraInfo);
+    e.target.removeEventListener("click", getExtraInfo);    // To prevent this from being repeated if the button is clicked again, the function removes its own eventListener.
+    e.target.innerHTML = "Click to close."; // Then it changes the button's text...
+    e.target.addEventListener("click", removeExtraInfo);    // ...and adds a new eventListener which will remove this extra information when the button is clicked.
 }
 
 async function removeExtraInfo(e){
