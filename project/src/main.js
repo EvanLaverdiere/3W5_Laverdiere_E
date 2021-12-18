@@ -48,8 +48,8 @@ async function planTrip(){
         try {
             let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
             await displayPath(tripPath, desiredTime); // Function then calls a function to display details of the trip's path. 
-            let externalTest = await getStationByName(endStation);
-            console.log(externalTest);               
+            let endPostalCode = await getPostalCodeByName(endStation);
+            console.log(endPostalCode);               
         } catch (error) {
             alert(error);
         }
@@ -408,17 +408,44 @@ async function getNotifications(stationId){
     }
 }
 
-async function getExternalData(){
+async function getExternalData(postalCode){
     let APIKey = "lPWmEWrO0gUAFIxqQcq9df4R06UtjXvD";
-    let pSResponse = await fetch("http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + APIKey + "&q=");
+    let pSResponse = await fetch("http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + APIKey + "&q=" + postalCode);
+    let targetPostalCode = await pSResponse.json();
 }
 
-async function getStationByName(stationName){
+// async function getStationByName(stationName){
+//     let response = await fetch("http://10.101.0.12:8080/stations");
+//     let allStations = await response.json();
+
+//     let desiredId;
+
+//     for(let i = 1; i < allStations.length; i++){
+//         const station = allStations[i];
+//         if(station.Name == stationName){
+//             desiredId = station.StationId;
+//             break;
+//         }
+//     }
+
+//     if(desiredId != null){
+//         desiredResponse = await fetch("http://10.101.0.12:8080/stations/" + desiredId);
+//         let desiredArray = await desiredResponse.json(); // resolves to array with one element.
+//         // console.log(desiredArray);
+//         let desiredStation = desiredArray[0];
+//         // console.log(desiredStation);
+//         return desiredStation;
+//     }
+//     else{
+//         return "Station not found."
+//     }
+// }
+
+async function getPostalCodeByName(stationName){
     let response = await fetch("http://10.101.0.12:8080/stations");
     let allStations = await response.json();
 
     let desiredId;
-    let desiredStation = null;
 
     for(let i = 1; i < allStations.length; i++){
         const station = allStations[i];
@@ -430,10 +457,16 @@ async function getStationByName(stationName){
 
     if(desiredId != null){
         desiredResponse = await fetch("http://10.101.0.12:8080/stations/" + desiredId);
-        let desiredStation = desiredResponse.json();
-        return desiredStation[0];
+        let desiredArray = await desiredResponse.json(); // resolves to array with one element.
+        // console.log(desiredArray);
+        let desiredStation = desiredArray[0];
+        // console.log(desiredStation);
+        let postalCode = desiredStation.PostalCode;
+
+        return postalCode;
     }
     else{
         return "Station not found."
     }
+
 }
