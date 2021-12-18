@@ -49,7 +49,8 @@ async function planTrip(){
             let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
             await displayPath(tripPath, desiredTime); // Function then calls a function to display details of the trip's path. 
             let endPostalCode = await getPostalCodeByName(endStation);
-            console.log(endPostalCode);               
+            console.log(endPostalCode);
+            await getExternalData(endPostalCode);            
         } catch (error) {
             alert(error);
         }
@@ -411,7 +412,15 @@ async function getNotifications(stationId){
 async function getExternalData(postalCode){
     let APIKey = "lPWmEWrO0gUAFIxqQcq9df4R06UtjXvD";
     let pSResponse = await fetch("http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + APIKey + "&q=" + postalCode);
-    let targetPostalCode = await pSResponse.json();
+    let AccuPostalCode = await pSResponse.json(); // resolves to an array containing a single complex object with detailed information about the specified postal code. Need this so we can grab a key from the object to get more information about the forecast for that location.
+    console.log(AccuPostalCode);
+
+    let locationKey = AccuPostalCode[0].Key;
+    console.log("Location key is " + locationKey);
+
+    let forecastResponse = await fetch("http://dataservice.accuweather.com/forecasts/v1/daily/1day/" + locationKey + "?apikey=" + APIKey);
+    let realForecast = await forecastResponse.json(); // Resolves to an object containing both an array of forecasts, and a Headlines object.
+    console.log(realForecast);
 }
 
 // async function getStationByName(stationName){
