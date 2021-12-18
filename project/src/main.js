@@ -410,7 +410,7 @@ async function getNotifications(stationId){
 }
 
 async function getExternalData(postalCode){
-    let APIKey = "lPWmEWrO0gUAFIxqQcq9df4R06UtjXvD";
+    let APIKey = "lPWmEWrO0gUAFIxqQcq9df4R06UtjXvD"; // Key which is needed to access the AccuWeather APIs. Without it, none of them will work.
     let pSResponse = await fetch("http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + APIKey + "&q=" + postalCode);
     let AccuPostalCode = await pSResponse.json(); // resolves to an array containing a single complex object with detailed information about the specified postal code. Need this so we can grab a key from the object to get more information about the forecast for that location.
     console.log(AccuPostalCode);
