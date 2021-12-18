@@ -217,7 +217,15 @@ async function fillRows(tBody, path, departureTime){
 
         infoButton.addEventListener("click", getExtraInfo);
 
-        notifCol.innerHTML = await getNotifications(stop.StationId);
+        let notifs = await getNotifications(stop.StationId);
+        console.log(typeof(notifs));
+
+        if(typeof notifs == "string"){
+            notifCol.innerHTML = notifs
+        }
+        else{
+            notifCol.appendChild(notifs);
+        }
 
         row.appendChild(timeCol);
         row.appendChild(nameCol);
@@ -368,6 +376,8 @@ async function getNotifications(stationId){
     console.log(notificationsArray);
 
     if(notificationsArray.length > 0){
+        let notiDiv = document.createElement("div");
+
         for(let i = 0; i < notificationsArray.length; i ++){
             const notification = notificationsArray[i];
             console.log(notification);
@@ -375,7 +385,10 @@ async function getNotifications(stationId){
             let notiPara = document.createElement("p");
             notiPara.innerHTML = notification.Description;
             console.log(notiPara);
+            notiDiv.appendChild(notiPara);
         }
+        console.log(notiDiv);
+        return notiDiv;
     }
     else{
         return "N/A";
