@@ -15,6 +15,8 @@ let endDestination = document.getElementById("endDestination");
 let startTime = document.getElementById("startTime");
 let submitBtn = document.getElementById("submitBtn");
 let routeSection = document.getElementById("routeSection");
+let AccuAside = document.getElementById("AccuWeather");
+let weatherHeader = document.getElementById("weatherHeader");
 
 // console.log(userRole);
 console.log(startDestination);
@@ -50,7 +52,8 @@ async function planTrip(){
             await displayPath(tripPath, desiredTime); // Function then calls a function to display details of the trip's path. 
             let endPostalCode = await getPostalCodeByName(endStation);
             console.log(endPostalCode);
-            await getExternalData(endPostalCode);            
+            let externalData = await getExternalData(endPostalCode);
+            await displayWeatherData(endStation, externalData);
         } catch (error) {
             alert(error);
         }
@@ -478,4 +481,10 @@ async function getPostalCodeByName(stationName){
         return "Station not found."
     }
 
+}
+
+async function displayWeatherData(endStation, weatherData){
+    weatherHeader.innerHTML += " " + endStation;
+
+    AccuAside.style.display = 'block';
 }
