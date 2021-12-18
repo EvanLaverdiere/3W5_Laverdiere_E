@@ -426,33 +426,6 @@ async function getExternalData(postalCode){
     console.log(realForecast);
 }
 
-// async function getStationByName(stationName){
-//     let response = await fetch("http://10.101.0.12:8080/stations");
-//     let allStations = await response.json();
-
-//     let desiredId;
-
-//     for(let i = 1; i < allStations.length; i++){
-//         const station = allStations[i];
-//         if(station.Name == stationName){
-//             desiredId = station.StationId;
-//             break;
-//         }
-//     }
-
-//     if(desiredId != null){
-//         desiredResponse = await fetch("http://10.101.0.12:8080/stations/" + desiredId);
-//         let desiredArray = await desiredResponse.json(); // resolves to array with one element.
-//         // console.log(desiredArray);
-//         let desiredStation = desiredArray[0];
-//         // console.log(desiredStation);
-//         return desiredStation;
-//     }
-//     else{
-//         return "Station not found."
-//     }
-// }
-
 async function getPostalCodeByName(stationName){
     let response = await fetch("http://10.101.0.12:8080/stations");
     let allStations = await response.json();
