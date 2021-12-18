@@ -412,6 +412,7 @@ async function getNotifications(stationId){
     }
 }
 
+// Async function which retrieves data from an external API--in this case, AccuWeather--based on a passed postal code value.
 async function getExternalData(postalCode){
     let APIKey = "lPWmEWrO0gUAFIxqQcq9df4R06UtjXvD"; // Key which is needed to access the AccuWeather APIs. Without it, none of them will work.
     let pSResponse = await fetch("http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + APIKey + "&q=" + postalCode);
@@ -426,32 +427,33 @@ async function getExternalData(postalCode){
     console.log(realForecast);
 }
 
+// Async function to retrieve a station's postal code through passing the station's name.
 async function getPostalCodeByName(stationName){
-    let response = await fetch("http://10.101.0.12:8080/stations");
-    let allStations = await response.json();
+    let response = await fetch("http://10.101.0.12:8080/stations"); // First the function fetches from the Stations API.
+    let allStations = await response.json();    // It resolves to an array of all the stations, with only basic information.
 
-    let desiredId;
+    let desiredId;  // Declare an empty variable which will store the id of the desired station.
 
     for(let i = 1; i < allStations.length; i++){
-        const station = allStations[i];
+        const station = allStations[i]; // Loop through all the stations in the array.
         if(station.Name == stationName){
-            desiredId = station.StationId;
+            desiredId = station.StationId;  // If one station's name matches the passed name, store the station's ID in the desiredId variable and break the loop.
             break;
-        }
+        }   // Otherwise, keep going.
     }
 
-    if(desiredId != null){
-        desiredResponse = await fetch("http://10.101.0.12:8080/stations/" + desiredId);
+    if(desiredId != null){ // If the desired ID was found...
+        desiredResponse = await fetch("http://10.101.0.12:8080/stations/" + desiredId); // ...the function fetches the corresponding station's in-depth data from the Stations API.
         let desiredArray = await desiredResponse.json(); // resolves to array with one element.
         // console.log(desiredArray);
-        let desiredStation = desiredArray[0];
+        let desiredStation = desiredArray[0];   // The station itself is stored in this variable.
         // console.log(desiredStation);
-        let postalCode = desiredStation.PostalCode;
+        let postalCode = desiredStation.PostalCode; // The function then grabs the station's postal code and returns it to the caller.
 
         return postalCode;
     }
     else{
-        return "Station not found."
+        return "Station not found." // If the ID was not found, the station returns this (should probably be reject instead).
     }
 
 }
