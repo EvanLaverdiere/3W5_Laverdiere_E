@@ -19,6 +19,7 @@ let AccuAside = document.getElementById("AccuWeather");
 let weatherHeader = document.getElementById("weatherHeader");
 let dayForecastDiv = document.getElementById("dayForecastDiv");
 let nightForecastDiv = document.getElementById("nightForecastDiv");
+let headlinesDiv = document.getElementById("headlinesDiv");
 
 // console.log(userRole);
 console.log(startDestination);
@@ -500,6 +501,13 @@ async function displayWeatherData(endStation, weatherData){
     let lowTempP = document.createElement("p");
     lowTempP.innerHTML = "Low of " + Math.round(celsiusMinTemp) + " degrees C.";
     nightForecastDiv.appendChild(lowTempP);
+
+    let headlineP = document.createElement("p");
+    let headlineLink = document.createElement("a");
+    headlineLink.innerHTML = headline.Text;
+    headlineLink.setAttribute("href", headline.Link);
+    headlineP.appendChild(headlineLink);
+    AccuAside.appendChild(headlineP);
 
     AccuAside.style.display = 'block';
 }
