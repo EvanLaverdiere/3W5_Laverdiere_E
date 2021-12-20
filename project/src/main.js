@@ -488,5 +488,22 @@ async function displayWeatherData(endStation, weatherData){
     console.log(maxTemp);
     console.log(minTemp);
 
+    let celsiusMaxTemp = getCelsiusFromFahrenheit(maxTemp.Value);
+    let celsiusMinTemp = getCelsiusFromFahrenheit(minTemp.Value);
+
+    console.log(maxTemp.Value + " degrees Fahrenheit equals " + celsiusMaxTemp + " degrees Celsius.");
+
+    let highTempP = document.createElement("p");
+    highTempP.innerHTML = "High of " + celsiusMaxTemp.toFixed() + " degrees C.";
+    dayForecastDiv.appendChild(highTempP);
+
+    let lowTempP = document.createElement("p");
+    lowTempP.innerHTML = "Low of " + celsiusMinTemp.toFixed() + " degrees C.";
+    nightForecastDiv.appendChild(lowTempP);
+
     AccuAside.style.display = 'block';
+}
+
+function getCelsiusFromFahrenheit(fahrenheitValue){
+    return (fahrenheitValue - 32) * (5/9);
 }
