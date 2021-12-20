@@ -17,6 +17,8 @@ let submitBtn = document.getElementById("submitBtn");
 let routeSection = document.getElementById("routeSection");
 let AccuAside = document.getElementById("AccuWeather");
 let weatherHeader = document.getElementById("weatherHeader");
+let dayForecastDiv = document.getElementById("dayForecastDiv");
+let nightForecastDiv = document.getElementById("nightForecastDiv");
 
 // console.log(userRole);
 console.log(startDestination);
@@ -423,8 +425,10 @@ async function getExternalData(postalCode){
     console.log("Location key is " + locationKey);
 
     let forecastResponse = await fetch("http://dataservice.accuweather.com/forecasts/v1/daily/1day/" + locationKey + "?apikey=" + APIKey);
-    let realForecast = await forecastResponse.json(); // Resolves to an object containing both an array of forecasts, and a Headlines object.
+    let realForecast = await forecastResponse.json(); // Resolves to an object containing both an array of DailyForecasts objects, and a Headlines object.
     console.log(realForecast);
+
+    return realForecast;
 }
 
 // Async function to retrieve a station's postal code through passing the station's name.
@@ -460,6 +464,12 @@ async function getPostalCodeByName(stationName){
 
 async function displayWeatherData(endStation, weatherData){
     weatherHeader.innerHTML += " " + endStation;
+
+    let forecast = weatherData.DailyForecasts;
+    let headline = weatherData.Headline;
+    console.log(forecast);
+    console.log(headline);
+    console.log(weatherData);
 
     AccuAside.style.display = 'block';
 }
