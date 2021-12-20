@@ -465,11 +465,28 @@ async function getPostalCodeByName(stationName){
 async function displayWeatherData(endStation, weatherData){
     weatherHeader.innerHTML += " " + endStation;
 
-    let forecast = weatherData.DailyForecasts;
-    let headline = weatherData.Headline;
+    let forecast = weatherData.DailyForecasts[0];   // Stores an Object containing information about the day's forecast. Technically this is an array with only one element.
+    let headline = weatherData.Headline;            // Stores an Object containing the day's biggest weather-related headline.
     console.log(forecast);
     console.log(headline);
-    console.log(weatherData);
+
+    let dayCast = forecast.Day;
+    let nightCast = forecast.Night;
+    console.log(dayCast);
+    console.log(nightCast);
+
+    let dayP = document.createElement("p");
+    dayP.innerHTML = (dayCast.HasPrecipitation == true ? dayCast.PrecipitationIntensity + " " + dayCast.IconPhrase : dayCast.IconPhrase);
+    dayForecastDiv.appendChild(dayP);
+
+    let nightP = document.createElement("p");
+    nightP.innerHTML = (nightCast.HasPrecipitation == true ? nightCast.PrecipitationIntensity + " " + nightCast.IconPhrase : nightCast.IconPhrase);
+    nightForecastDiv.appendChild(nightP);
+
+    let maxTemp = forecast.Temperature.Maximum;
+    let minTemp = forecast.Temperature.Minimum;
+    console.log(maxTemp);
+    console.log(minTemp);
 
     AccuAside.style.display = 'block';
 }
