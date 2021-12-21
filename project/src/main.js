@@ -468,6 +468,7 @@ async function getPostalCodeByName(stationName){
 }
 
 async function displayWeatherData(endStation, weatherData){
+    removeParagraphs(AccuAside); // If any paragraphs have previously been added to the AccuWeather aside or its children, remove them all.
     weatherHeader.innerHTML += " " + endStation;
 
     let forecast = weatherData.DailyForecasts[0];   // Stores an Object containing information about the day's forecast. Technically this is an array with only one element.
@@ -480,8 +481,8 @@ async function displayWeatherData(endStation, weatherData){
     console.log(dayCast);
     console.log(nightCast);
 
-    removeParagraphs(dayForecastDiv); // If paragraphs have previously been added to the day and night forecast divs, remove them.
-    removeParagraphs(nightForecastDiv);
+    // removeParagraphs(dayForecastDiv); // If paragraphs have previously been added to the day and night forecast divs, remove them.
+    // removeParagraphs(nightForecastDiv);
 
     let dayP = document.createElement("p");
     dayP.innerHTML = (dayCast.HasPrecipitation == true ? dayCast.PrecipitationIntensity + " " + dayCast.IconPhrase : dayCast.IconPhrase);
@@ -523,7 +524,7 @@ function getCelsiusFromFahrenheit(fahrenheitValue){
     return (fahrenheitValue - 32) * (5/9);
 }
 
-// Function to remove all paragraphs from a passed HTML element.
+// Function to remove all paragraphs from a passed HTML element. If passed element has children, it removes paragraphs from them as well.
 function removeParagraphs(containerElement){
     let paragraphs = containerElement.getElementsByTagName("p"); // First the function makes a list of all paragraphs in the element.
 
