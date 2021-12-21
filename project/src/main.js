@@ -10,7 +10,7 @@
 //     }
 // }
 
-//#region Variables
+//#region Global Variables
 
 let startDestination = document.getElementById("startDestination");
 let endDestination = document.getElementById("endDestination");
@@ -58,12 +58,12 @@ async function planTrip(){
             let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
             // await displayPath(tripPath, desiredTime); // Function then calls a function to display details of the trip's path. 
             await displayPathV2(tripPath, desiredTime); // Function then calls a function to display details of the trip's path. 
-            let endPostalCode = await getPostalCodeByName(endStation);
+            let endPostalCode = await getPostalCodeByName(endStation);  // Then it calls a function to retrieve a station's postal code by passing in the station's name.
             console.log(endPostalCode);
-            let externalData = await getExternalData(endPostalCode);
-            await displayWeatherData(endStation, externalData);
+            let externalData = await getExternalData(endPostalCode);    // The postal code is then passed to a function to retrieve data from an external AccuWEather API.
+            await displayWeatherData(endStation, externalData);         // Finally, it calls a function to display data about the weather in a sidebar, using the retrieved external data.
         } catch (error) {
-            alert(error);
+            alert(error);   // If anything goes wrong in one of these functions or their children, the script will catch it here and alert the user.
         }
     
     }
@@ -84,8 +84,6 @@ async function getStations(){
 
     return stations;    // The parsed promise is finally returned to the caller.
 }
-
-// let stationsList = getStations();
 
 // Function which fills the HTML form's destination lists with names from an array of stations.
 async function fillDestinationLists(stationsList){
