@@ -44,3 +44,6 @@ tr.oddRow{
     color: white;
 }
 
+#AccuWeatherLogo{
+    max-width: 100px;
+}
