@@ -520,6 +520,7 @@ async function displayWeatherData(endStation, weatherData){
     AccuAside.style.display = 'block';
 }
 
+// Function to convert the temperature from a passed Fahrenheit value to Celsius.
 function getCelsiusFromFahrenheit(fahrenheitValue){
     return (fahrenheitValue - 32) * (5/9);
 }
