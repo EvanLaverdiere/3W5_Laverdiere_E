@@ -463,12 +463,13 @@ async function getNotifications(stationId){
 //#region External API Functions
 // Async function which retrieves data from an external API--in this case, AccuWeather--based on a passed postal code value.
 async function getExternalData(postalCode){
-    let APIKey = "lPWmEWrO0gUAFIxqQcq9df4R06UtjXvD"; // Key which is needed to access the AccuWeather APIs. Without it, none of them will work.
+    let APIKey = "lPWmEWrO0gUAFIxqQcq9df4R06UtjXvD"; // Key which is needed to access the AccuWeather APIs. Without it, none of them will work. 
+    // IMPORTANT NOTE: Because my account with AccuWeather is the free version, these keys can only be used up to 50 times per day (or at least, that's what "50 calls/day" seems to mean.)
     let pSResponse = await fetch("http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + APIKey + "&q=" + postalCode);
     let AccuPostalCode = await pSResponse.json(); // resolves to an array containing a single complex object with detailed information about the specified postal code. Need this so we can grab a key from the object to get more information about the forecast for that location.
     console.log(AccuPostalCode);
 
-    let locationKey = AccuPostalCode[0].Key;
+    let locationKey = AccuPostalCode[0].Key;    // Function grabs the aforementioned extra key.
     console.log("Location key is " + locationKey);
 
     let forecastResponse = await fetch("http://dataservice.accuweather.com/forecasts/v1/daily/1day/" + locationKey + "?apikey=" + APIKey);
