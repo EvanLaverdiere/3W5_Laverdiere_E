@@ -19,16 +19,6 @@ body{
     background-color: chartreuse;
 }
 
-form{
-    border: thick;
-    border-radius: 13%;
-    /* border-width: ; */
-    background-color: green;
-    width: 75%;
-    margin: auto;
-    padding: 10px;
-}
-
 table{
     max-width: 96%;
     margin: auto;
@@ -57,6 +47,41 @@ tr.oddRow{
 }
 /*#endregion*/
 
+/*#region FORM CSS*/
+form{
+    border: thick;
+    border-radius: 13%;
+    /* border-width: ; */
+    background-color: green;
+    width: 75%;
+    margin: auto;
+    padding: 10px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "sD eD sT";
+}
+
+form > label{
+    font-weight: bold;
+    /* display: block; */
+    
+}
+#startDestination{
+    grid-area: sD;
+}
+#endDestination{
+    grid-area: eD;
+}
+#startTime{
+    grid-area: sT;
+}
+#submitBtn{
+    grid-area: "sB";
+}
+/*#endregion  */
 #routeSection{
     border: 3px solid blue;
     border-radius: 1%;
