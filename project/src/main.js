@@ -480,6 +480,9 @@ async function displayWeatherData(endStation, weatherData){
     console.log(dayCast);
     console.log(nightCast);
 
+    removeParagraphs(dayForecastDiv); // If paragraphs have previously been added to the day and night forecast divs, remove them.
+    removeParagraphs(nightForecastDiv);
+
     let dayP = document.createElement("p");
     dayP.innerHTML = (dayCast.HasPrecipitation == true ? dayCast.PrecipitationIntensity + " " + dayCast.IconPhrase : dayCast.IconPhrase);
     dayForecastDiv.appendChild(dayP);
