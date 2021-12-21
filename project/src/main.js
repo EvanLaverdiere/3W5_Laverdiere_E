@@ -529,11 +529,11 @@ async function displayWeatherData(endStation, weatherData){
     console.log(maxTemp.Value + " degrees Fahrenheit equals " + celsiusMaxTemp + " degrees Celsius.");
 
     let highTempP = document.createElement("p");
-    highTempP.innerHTML = "High of " + Math.round(celsiusMaxTemp) + " degrees C.";
+    highTempP.innerHTML = "High of <strong>" + Math.round(celsiusMaxTemp) + "</strong> degrees C.";
     dayForecastDiv.appendChild(highTempP);
 
     let lowTempP = document.createElement("p");
-    lowTempP.innerHTML = "Low of " + Math.round(celsiusMinTemp) + " degrees C.";
+    lowTempP.innerHTML = "Low of <strong>" + Math.round(celsiusMinTemp) + "</strong> degrees C.";
     nightForecastDiv.appendChild(lowTempP);
 
     let headlineP = document.createElement("p");
@@ -544,6 +544,7 @@ async function displayWeatherData(endStation, weatherData){
     AccuAside.appendChild(headlineP);
 
     AccuAside.style.display = 'inline-block';
+    AccuAside.style.width = "20%";
 }
 
 // Function to convert the temperature from a passed Fahrenheit value to Celsius.
