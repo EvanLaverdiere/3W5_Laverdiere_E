@@ -133,8 +133,15 @@ async function getPath(start, end){
 }
 
 async function displayPathV2(path, departureTime){
-    let routeTable = routeSection.getElementsByTagName("table")[0];
-    console.log(routeTable);
+    let pathTable = routeSection.getElementsByTagName("table")[0];
+    let ptBody = pathTable.getElementsByTagName("tbody")[0];
+    let ptHeader = ptBody.firstElementChild;
+
+    console.log(ptHeader);
+}
+
+function trimTableRows(tBody){
+    let rows = tBody.getElementsByTagName("tr");
 }
 
 async function displayPath(path, departureTime){
