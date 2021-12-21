@@ -418,6 +418,7 @@ async function getNotifications(stationId){
 }
 //#endregion
 
+//#region External API Functions
 // Async function which retrieves data from an external API--in this case, AccuWeather--based on a passed postal code value.
 async function getExternalData(postalCode){
     let APIKey = "lPWmEWrO0gUAFIxqQcq9df4R06UtjXvD"; // Key which is needed to access the AccuWeather APIs. Without it, none of them will work.
@@ -518,3 +519,5 @@ async function displayWeatherData(endStation, weatherData){
 function getCelsiusFromFahrenheit(fahrenheitValue){
     return (fahrenheitValue - 32) * (5/9);
 }
+
+//#endregion
