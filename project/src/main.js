@@ -137,7 +137,10 @@ async function displayPathV2(path, departureTime){
     let ptBody = pathTable.getElementsByTagName("tbody")[0];
     let ptHeader = ptBody.firstElementChild;
 
+    await fillRows(ptBody, path, departureTime);
+
     console.log(ptHeader);
+    routeSection.style.display = "block";
 }
 
 function trimTableRows(tBody){
