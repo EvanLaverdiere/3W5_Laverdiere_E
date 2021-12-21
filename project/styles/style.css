@@ -45,8 +45,37 @@ tr.oddRow{
 }
 aside#AccuWeather{
     width: 20%;
+    border: 3px solid blue;
+    border-radius: 5%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 #AccuWeatherLogo{
-    max-width: 50px;
+    max-width: 100px;
+    margin: auto;
+}
+
+#logoContainer{
+    grid-column: 1 / 3;
+    text-align: center;
+}
+
+#logoContainer > a{
+    margin: auto;
+    display: inline-block;
+}
+
+#weatherHeader{
+    grid-column: 1 / 3;
+}
+
+#routeSection{
+    border: 3px solid blue;
+    border-radius: 5%;
+}
+
+#headlinesDiv{
+    grid-column: 1 / 3;
 }
