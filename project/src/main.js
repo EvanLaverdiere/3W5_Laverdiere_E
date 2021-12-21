@@ -148,13 +148,15 @@ async function displayPathV2(path, departureTime){
     routeSection.style.width = "80%";
 }
 
+// Function which removes non-header rows from a passed table's body.
 function trimTableRows(tBody){
-    let rows = tBody.getElementsByTagName("tr");
+    let rows = tBody.getElementsByTagName("tr");    // First the function grabs all rows in the table.
     console.log(rows);
 
     if(rows.length > 1){
+        // If there is more than one row, 
         for(let i = rows.length - 1; i >= 1; i --){
-            rows[i].remove();
+            rows[i].remove();   // The function removes all rows but the first (i.e., the header).
         }
     }
 }
