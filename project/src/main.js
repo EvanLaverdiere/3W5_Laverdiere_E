@@ -520,4 +520,16 @@ function getCelsiusFromFahrenheit(fahrenheitValue){
     return (fahrenheitValue - 32) * (5/9);
 }
 
+// Function to remove all paragraphs from a passed HTML element.
+function removeParagraphs(containerElement){
+    let paragraphs = containerElement.getElementsByTagName("p"); // First the function makes a list of all paragraphs in the element.
+
+    if(paragraphs.length > 0){
+        // If there are any paragraphs at all,
+        for(let i = paragraphs.length - 1; i >= 0; i --){
+            paragraphs[i].remove(); // The function cycles through them in reverse order and removes them one by one.
+        }
+    }
+}
+
 //#endregion
