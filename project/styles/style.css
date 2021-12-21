@@ -73,6 +73,7 @@ form > label{
     color: white;
     /* display: block; */    
 }
+/* Found out how to apply CSS to specific labels from here: https://stackoverflow.com/questions/2599627/how-to-select-label-for-xyz-in-css */
 label[for=starDestination]{
     grid-area: lsD;
 }

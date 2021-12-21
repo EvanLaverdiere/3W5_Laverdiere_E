@@ -529,11 +529,11 @@ async function displayWeatherData(endStation, weatherData){
     console.log(maxTemp.Value + " degrees Fahrenheit equals " + celsiusMaxTemp + " degrees Celsius.");
 
     let highTempP = document.createElement("p");
-    highTempP.innerHTML = "High of <strong>" + Math.round(celsiusMaxTemp) + "</strong> degrees C.";
+    highTempP.innerHTML = "High of <strong>" + Math.round(celsiusMaxTemp) + "</strong> &#176 C.";
     dayForecastDiv.appendChild(highTempP);
 
     let lowTempP = document.createElement("p");
-    lowTempP.innerHTML = "Low of <strong>" + Math.round(celsiusMinTemp) + "</strong> degrees C.";
+    lowTempP.innerHTML = "Low of <strong>" + Math.round(celsiusMinTemp) + "</strong> &#176 C.";
     nightForecastDiv.appendChild(lowTempP);
 
     let headlineP = document.createElement("p");
