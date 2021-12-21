@@ -541,7 +541,7 @@ async function displayWeatherData(endStation, weatherData){
     headlineLink.innerHTML = headline.Text;
     headlineLink.setAttribute("href", headline.Link);
     headlineP.appendChild(headlineLink);
-    AccuAside.appendChild(headlineP);
+    headlinesDiv.appendChild(headlineP);
 
     AccuAside.style.display = 'inline-block';
     AccuAside.style.width = "20%";
