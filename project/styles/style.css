@@ -17,7 +17,11 @@ section#routeSection, aside#AccuWeather{
 }
 
 body{
-    background-color: chartreuse;
+    background-color: #84BD00;
+}
+
+h1, h2{
+    color: #034638;
 }
 
 table{
@@ -25,25 +29,26 @@ table{
     margin: auto;
     /* border-width: 5px;
     border-color: hotpink; */
-    background-color: crimson;
-    color: wheat;
+    background-color: #034638;
+    color: white;
 }
 
 table, th, td{
     border: 1px solid coral;
 }
 
+
 tbody > tr{
     border: solid 2px coral;
 }
 
 tr.evenRow{
-    background-color: cyan;
+    background-color: #fdac07;
     color: black;
 }
 
 tr.oddRow{
-    background-color: darkcyan;
+    background-color: #ef6101;
     color: white;
 }
 /*#endregion*/
@@ -53,7 +58,7 @@ form{
     border: thick;
     border-radius: 13%;
     /* border-width: ; */
-    background-color: green;
+    background-color: #034638;
     width: 75%;
     margin: auto;
     padding: 10px;
@@ -99,7 +104,8 @@ label[for=startTime]{
 }
 /*#endregion  */
 #routeSection{
-    border: 3px solid blue;
+    border: 3px solid #225C50;
+    background-color: #D5E739;
     border-radius: 1%;
     max-height: 500px;
     overflow-x: auto;
@@ -112,7 +118,7 @@ label[for=startTime]{
 
 #AccuWeather{
     width: 25%;
-    border: 3px solid blue;
+    border: 3px solid #225C50;
     border-radius: 1%;
 
     display: grid;
@@ -121,7 +127,7 @@ label[for=startTime]{
 
 #AccuWeather > *{
     border: 1px solid steelblue;
-    background-color: wheat;
+    background-color: #F1F1EF;
 }
 
 #AccuWeatherLogo{
