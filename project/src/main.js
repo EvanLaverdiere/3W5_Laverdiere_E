@@ -198,82 +198,90 @@ function trimTableRows(tBody){
 //     document.body.appendChild(pathSection);
 // }
 
+// Asynchronous function which fills a passed table body element with rows of detailed information about stations.
+// "path" is an array of objects representing all the stations between two points of the REM network.
+// "departureTime" is a string representing the time at which the user wishes to begin their trip.
 async function fillRows(tBody, path, departureTime){
-    // let estimatedArrivalTime = new Date(departureTime.getTime());
-    // let desiredTime = new Date(departureTime);
-    let estimatedArrivalTime = new Date(departureTime);
+    let estimatedArrivalTime = new Date(departureTime); // First the function converts the passed departureTime string to a proper Date object.
 
-    let lastSegment = null;
+    let lastSegment = null; // Then it declares a null variable which will hold the previous network segment.
 
+    // It then cycles through all stations on the path.
     for (let index = 0; index < path.length; index++) {
-        const stop = path[index];
+        const stop = path[index];   // "stop" represents the current station.
         
         console.log("Current index: " + index);
-        let lastStop = null;
+        let lastStop = null;    // variable which represents the last stop before the current one.
         if(index >= 1){
-            lastStop = path[index - 1];
+            lastStop = path[index - 1]; // It only gets filled if we are not on the starting station.
             console.log("Last station was " + lastStop.Name + " on segment " + lastStop.SegmentId);
 
         }
-        let row = document.createElement("tr");
+        let row = document.createElement("tr"); // Function then creates a new table row and five new datacell elements, one for each column of the table.
         let timeCol = document.createElement("td");
         let nameCol = document.createElement("td");
         let dirCol = document.createElement("td");
         let extraCol = document.createElement("td");
         let notifCol = document.createElement("td");
 
-        if(index == 0 || (lastSegment != null && stop.SegmentId != lastSegment)){ // found a bug. Second condition never triggers because of how lastStop is being set.
+        // If we are at the starting station, or if we have changed to a different segment, we need to adjust the time.
+        if(index == 0 || (lastSegment != null && stop.SegmentId != lastSegment)){ 
             // do something with revised getDepartureTime() method
             if(lastSegment != null && stop.SegmentId != lastSegment){
+                // If we are not at the starting station, we must be changing to a different segment. The function logs this fact to the console.
                 console.log("Changing segments. Last segment was " + lastSegment + "; current segment is " + stop.SegmentId + ".");
             }
+            // We call an asynchronous function to get a new departure time, based on the first station on the current segment.
+            // This time is then written to the time column.
             estimatedArrivalTime = await getDepartureTime(stop.Name, stop.SegmentId, estimatedArrivalTime);
             timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
         }
         else{
-            let avgSpeed = await getAvgSpeed();
-            let distance = await getDistance(lastStop, stop);
+            // Otherwise, we need to calculate our arrival times based on speed and distance.
+            let avgSpeed = await getAvgSpeed(); // Calls an async function to retrieve the average speed of trains, in km/hr, from the REM's API.
+            let distance = await getDistance(lastStop, stop);   // Then it calls another async function to calculate the distance between the last stop and this one.
 
-            console.log("Average speed is " + avgSpeed + " km/hr.");
+            console.log("Average speed is " + avgSpeed + " km/hr.");    // The function logs these values to the console.
             console.log("Distance between " + stop.Name + " and " + lastStop.Name + " is " + distance + "km.");
 
-            let travelTime = GetTravelTime(distance, avgSpeed);
+            let travelTime = GetTravelTime(distance, avgSpeed); // These values are passed to a function which can perform the necessary calculations. The result is logged to the console.
             console.log("Travel time between " + stop.Name + " and " + lastStop.Name + " is " + travelTime + " milliseconds");
 
-            let realTravelTime = new Date(travelTime);
+            let realTravelTime = new Date(travelTime);  // Function creates a new Date object from the calculated time.
             console.log("Real travel time: " + realTravelTime);
 
-            estimatedArrivalTime.setTime(estimatedArrivalTime.getTime() + realTravelTime.getTime());
+            estimatedArrivalTime.setTime(estimatedArrivalTime.getTime() + realTravelTime.getTime()); // The new time is then added to estimatedArrivalTime.
 
-            console.log("Estimated arrival time: " + estimatedArrivalTime);
+            console.log("Estimated arrival time: " + estimatedArrivalTime); // Function logs the estimated arrival time, and writes it to the time column cell.
 
             timeCol.innerHTML = estimatedArrivalTime.getHours() + ":" + (estimatedArrivalTime.getMinutes() < 10 ? "0" + estimatedArrivalTime.getMinutes() : estimatedArrivalTime.getMinutes());
         }
-        nameCol.innerHTML = stop.Name;
-        dirCol.innerHTML = stop.SegmentName;
+        nameCol.innerHTML = stop.Name;  // In either case, function then writes current station's name to the name column cell...
+        dirCol.innerHTML = stop.SegmentName;    // ... and the segment's name to the direction column cell.
 
-        let infoButton = getInfoButton(stop.StationId);
+        let infoButton = getInfoButton(stop.StationId); // It then calls a function to create a function that will trigger certain eventListener functions.
 
-        extraCol.appendChild(infoButton);
+        extraCol.appendChild(infoButton);   // This button is then appended to the extra information column's cell, and applies the eventListener.
 
         infoButton.addEventListener("click", getExtraInfo);
 
-        let notifs = await getNotifications(stop.StationId);
+        let notifs = await getNotifications(stop.StationId); // Calls an async function which tries to retrieve any notifications in effect for the current station. Can return either an array of paragraphs, or a string representing that no notifications were found.
         console.log(typeof(notifs));
 
         if(typeof notifs == "string"){
-            notifCol.innerHTML = notifs
+            notifCol.innerHTML = notifs // If getNotifications returned a string, write it to notification column cell.
         }
         else{
-            notifCol.appendChild(notifs);
+            notifCol.appendChild(notifs);   // Otherwise, append all the paragraphs to the notification column cell.
         }
 
-        row.appendChild(timeCol);
+        row.appendChild(timeCol);   // All of these data cells are then appended to the row.
         row.appendChild(nameCol);
         row.appendChild(dirCol);
         row.appendChild(extraCol);
         row.appendChild(notifCol);
 
+        // The row itself is then given the evenRow or oddRow class, based on the value of the for loop's current index.
         if(index % 2 == 0){
             row.setAttribute("class", "evenRow");
         }
@@ -281,9 +289,9 @@ async function fillRows(tBody, path, departureTime){
             row.setAttribute("class", "oddRow");
         }
 
-        tBody.appendChild(row);        
+        tBody.appendChild(row); // The completed row is then appended to the table.        
 
-        lastSegment = stop.SegmentId;
+        lastSegment = stop.SegmentId;   // Finally, lastSegment's value is updated so we can track when a segment change happens.
 
 
     }
