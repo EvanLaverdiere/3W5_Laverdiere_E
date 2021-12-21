@@ -132,17 +132,19 @@ async function getPath(start, end){
     return path;
 }
 
+// Function which displays the path of the user's trip.
+// "path" is an array of Objects representing all the stops on the trip.
+// "departureTime" is a string representing the time at which the user wants to begin their trip.
 async function displayPathV2(path, departureTime){
-    let pathTable = routeSection.getElementsByTagName("table")[0];
+    let pathTable = routeSection.getElementsByTagName("table")[0];  // First, function grabs the routeSection's table and its body, storing them in variables.
     let ptBody = pathTable.getElementsByTagName("tbody")[0];
     let ptHeader = ptBody.firstElementChild;
 
-    trimTableRows(ptBody);
+    trimTableRows(ptBody);  // Then it calls a separate function to remove any non-header rows that may be in the table already.
 
-    await fillRows(ptBody, path, departureTime);
+    await fillRows(ptBody, path, departureTime);    // An asynchronous function is then called to fill the table with rows of detailed information for each stop on the path.
 
-    console.log(ptHeader);
-    routeSection.style.display = "inline-block";
+    routeSection.style.display = "inline-block";    // Finally, the function makes #routeSection visible to the user if it wasn't already.
     routeSection.style.width = "80%";
 }
 
