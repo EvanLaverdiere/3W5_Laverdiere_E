@@ -495,7 +495,7 @@ async function getPostalCodeByName(stationName){
 
 async function displayWeatherData(endStation, weatherData){
     removeParagraphs(AccuAside); // If any paragraphs have previously been added to the AccuWeather aside or its children, remove them all.
-    weatherHeader.innerHTML += " " + endStation;
+    weatherHeader.innerHTML = "Today's Forecast for " + endStation;
 
     let forecast = weatherData.DailyForecasts[0];   // Stores an Object containing information about the day's forecast. Technically this is an array with only one element.
     let headline = weatherData.Headline;            // Stores an Object containing the day's biggest weather-related headline.
