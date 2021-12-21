@@ -543,7 +543,7 @@ async function displayWeatherData(endStation, weatherData){
     headlineP.appendChild(headlineLink);
     headlinesDiv.appendChild(headlineP);
 
-    AccuAside.style.display = 'inline-block';
+    AccuAside.style.display = 'grid';
     AccuAside.style.width = "20%";
 }
 
