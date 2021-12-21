@@ -1,5 +1,6 @@
 section#routeSection, aside#AccuWeather{
-    display: none;
+    /* display: none; */
+    display: inline-block;
 }
 
 body{
@@ -42,3 +43,4 @@ tr.oddRow{
     background-color: darkcyan;
     color: white;
 }
+
