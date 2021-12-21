@@ -510,57 +510,57 @@ async function getPostalCodeByName(stationName){
 
 }
 
+// Asynchronous function to display data about the day's forecast for a given place.
+// "endStation" is a string representing the destination station's name.
+// "weatherData" is an object representing a one-day forecast for a given region.
 async function displayWeatherData(endStation, weatherData){
     removeParagraphs(AccuAside); // If any paragraphs have previously been added to the AccuWeather aside or its children, remove them all.
-    weatherHeader.innerHTML = "Today's Forecast for " + endStation;
+    weatherHeader.innerHTML = "Today's Forecast for " + endStation; // Makes weather header display name of the user's destination.
 
     let forecast = weatherData.DailyForecasts[0];   // Stores an Object containing information about the day's forecast. Technically this is an array with only one element.
     let headline = weatherData.Headline;            // Stores an Object containing the day's biggest weather-related headline.
     console.log(forecast);
     console.log(headline);
 
-    let dayCast = forecast.Day;
+    let dayCast = forecast.Day;     // There are separate forecasts for daytime and nighttime. The function grabs them both and logs them to the console.
     let nightCast = forecast.Night;
     console.log(dayCast);
     console.log(nightCast);
 
-    // removeParagraphs(dayForecastDiv); // If paragraphs have previously been added to the day and night forecast divs, remove them.
-    // removeParagraphs(nightForecastDiv);
-
-    let dayP = document.createElement("p");
+    let dayP = document.createElement("p"); // It then creates a paragraph whose contents display general info about the expected type of weather/precipitation for the day,
     dayP.innerHTML = (dayCast.HasPrecipitation == true ? dayCast.PrecipitationIntensity + " " + dayCast.IconPhrase : dayCast.IconPhrase);
-    dayForecastDiv.appendChild(dayP);
+    dayForecastDiv.appendChild(dayP);       // and appends it to the day forecast div.
 
-    let nightP = document.createElement("p");
+    let nightP = document.createElement("p");   // The function then does the same thing for the night's forecast div.
     nightP.innerHTML = (nightCast.HasPrecipitation == true ? nightCast.PrecipitationIntensity + " " + nightCast.IconPhrase : nightCast.IconPhrase);
     nightForecastDiv.appendChild(nightP);
 
-    let maxTemp = forecast.Temperature.Maximum;
+    let maxTemp = forecast.Temperature.Maximum; // The function then grabs the highest and lowest temperatures, in Fahrenheit.
     let minTemp = forecast.Temperature.Minimum;
     console.log(maxTemp);
     console.log(minTemp);
 
-    let celsiusMaxTemp = getCelsiusFromFahrenheit(maxTemp.Value);
+    let celsiusMaxTemp = getCelsiusFromFahrenheit(maxTemp.Value);   // These temperatures are then converted to Celsius via a function.
     let celsiusMinTemp = getCelsiusFromFahrenheit(minTemp.Value);
 
     console.log(maxTemp.Value + " degrees Fahrenheit equals " + celsiusMaxTemp + " degrees Celsius.");
 
-    let highTempP = document.createElement("p");
+    let highTempP = document.createElement("p"); // It then creates a new paragraph to hold each temperature extreme, appending the high to the day div...
     highTempP.innerHTML = "High of <strong>" + Math.round(celsiusMaxTemp) + "</strong> &#176 C.";
     dayForecastDiv.appendChild(highTempP);
 
-    let lowTempP = document.createElement("p");
+    let lowTempP = document.createElement("p"); // ... and the low to the night div.
     lowTempP.innerHTML = "Low of <strong>" + Math.round(celsiusMinTemp) + "</strong> &#176 C.";
     nightForecastDiv.appendChild(lowTempP);
 
-    let headlineP = document.createElement("p");
-    let headlineLink = document.createElement("a");
+    let headlineP = document.createElement("p");    // Then it creates a paragraph to hold the region's big weather headline.
+    let headlineLink = document.createElement("a"); // The paragraph's text will be a hyperlink that displays the headline.
     headlineLink.innerHTML = headline.Text;
-    headlineLink.setAttribute("href", headline.Link);
-    headlineP.appendChild(headlineLink);
-    headlinesDiv.appendChild(headlineP);
+    headlineLink.setAttribute("href", headline.Link);   // The hyperlink's href is set to the value found in the headline property's link property.
+    headlineP.appendChild(headlineLink);    // The hyperlink is then appended to the paragraph...
+    headlinesDiv.appendChild(headlineP);    // ...which is then appended to the headlines div.
 
-    AccuAside.style.display = 'grid';
+    AccuAside.style.display = 'grid';   // Finally, the function makes the AccuWeather aside visible.
     AccuAside.style.width = "20%";
 }
 
