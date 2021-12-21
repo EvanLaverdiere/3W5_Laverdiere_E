@@ -1,12 +1,14 @@
 // Evan Laverdiere      Student ID 0860347
+// WEB PROGRAMMING I, FALL 2021
+// FINAL PROJECT
 
-class Station{
-    //To be filled in once more details are available.
-    constructor(stationId, name){
-        this.stationId = stationId;
-        this.name = name;
-    }
-}
+// class Station{
+//     //To be filled in once more details are available.
+//     constructor(stationId, name){
+//         this.stationId = stationId;
+//         this.name = name;
+//     }
+// }
 
 //#region Variables
 
