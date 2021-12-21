@@ -55,6 +55,7 @@ async function planTrip(){
         try {
             let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
             await displayPath(tripPath, desiredTime); // Function then calls a function to display details of the trip's path. 
+            await displayPathV2(tripPath, desiredTime);
             let endPostalCode = await getPostalCodeByName(endStation);
             console.log(endPostalCode);
             let externalData = await getExternalData(endPostalCode);
@@ -129,6 +130,11 @@ async function getPath(start, end){
     let path = await response.json();   // Parses the Response object as JSON.
     console.log(path);  // Logs the resulting array for posterity.
     return path;
+}
+
+async function displayPathV2(path, departureTime){
+    let routeTable = routeSection.getElementsByTagName("table")[0];
+    console.log(routeTable);
 }
 
 async function displayPath(path, departureTime){
