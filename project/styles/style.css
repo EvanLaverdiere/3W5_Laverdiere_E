@@ -1,6 +1,7 @@
 /*#region GENERAL CSS*/
 *{
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 div#contentContainer{
@@ -103,6 +104,9 @@ label[for=startTime]{
     max-height: 500px;
     overflow-x: auto;
 }
+#routeSection > h2{
+    margin-left: 10px;
+}
 
 /*#region ACCUWEATHER CSS */
 
@@ -117,6 +121,7 @@ label[for=startTime]{
 
 #AccuWeather > *{
     border: 1px solid steelblue;
+    background-color: wheat;
 }
 
 #AccuWeatherLogo{
