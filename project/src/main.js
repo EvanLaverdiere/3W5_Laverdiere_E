@@ -142,7 +142,8 @@ async function displayPathV2(path, departureTime){
     await fillRows(ptBody, path, departureTime);
 
     console.log(ptHeader);
-    routeSection.style.display = "block";
+    routeSection.style.display = "inline-block";
+    routeSection.style.width = "80%";
 }
 
 function trimTableRows(tBody){
@@ -542,7 +543,7 @@ async function displayWeatherData(endStation, weatherData){
     headlineP.appendChild(headlineLink);
     AccuAside.appendChild(headlineP);
 
-    AccuAside.style.display = 'block';
+    AccuAside.style.display = 'inline-block';
 }
 
 // Function to convert the temperature from a passed Fahrenheit value to Celsius.
