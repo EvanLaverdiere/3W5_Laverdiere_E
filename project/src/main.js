@@ -137,6 +137,8 @@ async function displayPathV2(path, departureTime){
     let ptBody = pathTable.getElementsByTagName("tbody")[0];
     let ptHeader = ptBody.firstElementChild;
 
+    trimTableRows(ptBody);
+
     await fillRows(ptBody, path, departureTime);
 
     console.log(ptHeader);
@@ -145,6 +147,13 @@ async function displayPathV2(path, departureTime){
 
 function trimTableRows(tBody){
     let rows = tBody.getElementsByTagName("tr");
+    console.log(rows);
+
+    if(rows.length > 1){
+        for(let i = rows.length - 1; i >= 1; i --){
+            rows[i].remove();
+        }
+    }
 }
 
 async function displayPath(path, departureTime){
