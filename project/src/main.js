@@ -157,42 +157,42 @@ function trimTableRows(tBody){
     }
 }
 
-async function displayPath(path, departureTime){
-    let pathSection = document.createElement("section");
-    let psHeader = document.createElement("h2");
-    psHeader.innerHTML = "Your Route:";
-    pathSection.appendChild(psHeader);
+// async function displayPath(path, departureTime){
+//     let pathSection = document.createElement("section");
+//     let psHeader = document.createElement("h2");
+//     psHeader.innerHTML = "Your Route:";
+//     pathSection.appendChild(psHeader);
     
-    let pathTable = document.createElement("table");
-    let ptBody = document.createElement("tbody");
-    let ptHeader = document.createElement("tr");
-    let timeHeader = document.createElement("th");
-    let stationHeader = document.createElement("th");
-    let directionHeader = document.createElement("th");
-    let extraHeader = document.createElement("th");
-    let notifHeader = document.createElement("th");
+//     let pathTable = document.createElement("table");
+//     let ptBody = document.createElement("tbody");
+//     let ptHeader = document.createElement("tr");
+//     let timeHeader = document.createElement("th");
+//     let stationHeader = document.createElement("th");
+//     let directionHeader = document.createElement("th");
+//     let extraHeader = document.createElement("th");
+//     let notifHeader = document.createElement("th");
 
-    timeHeader.innerHTML = "Departure/Arrival Time";
-    stationHeader.innerHTML = "Station";
-    directionHeader.innerHTML = "Direction";
-    extraHeader.innerHTML = "Information";
-    notifHeader.innerHTML = "Notifications";
-    ptHeader.appendChild(timeHeader);
-    ptHeader.appendChild(stationHeader);
-    ptHeader.appendChild(directionHeader);
-    ptHeader.appendChild(extraHeader);
-    ptHeader.appendChild(notifHeader);
-
-
-    pathTable.appendChild(ptHeader);
-
-    await fillRows(ptBody, path, departureTime);        
+//     timeHeader.innerHTML = "Departure/Arrival Time";
+//     stationHeader.innerHTML = "Station";
+//     directionHeader.innerHTML = "Direction";
+//     extraHeader.innerHTML = "Information";
+//     notifHeader.innerHTML = "Notifications";
+//     ptHeader.appendChild(timeHeader);
+//     ptHeader.appendChild(stationHeader);
+//     ptHeader.appendChild(directionHeader);
+//     ptHeader.appendChild(extraHeader);
+//     ptHeader.appendChild(notifHeader);
 
 
-    pathTable.appendChild(ptBody);
-    pathSection.appendChild(pathTable);
-    document.body.appendChild(pathSection);
-}
+//     pathTable.appendChild(ptHeader);
+
+//     await fillRows(ptBody, path, departureTime);        
+
+
+//     pathTable.appendChild(ptBody);
+//     pathSection.appendChild(pathTable);
+//     document.body.appendChild(pathSection);
+// }
 
 async function fillRows(tBody, path, departureTime){
     // let estimatedArrivalTime = new Date(departureTime.getTime());
