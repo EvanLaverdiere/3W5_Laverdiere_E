@@ -43,7 +43,10 @@ tr.oddRow{
     background-color: darkcyan;
     color: white;
 }
+aside#AccuWeather{
+    width: 20%;
+}
 
 #AccuWeatherLogo{
-    max-width: 100px;
+    max-width: 50px;
 }
