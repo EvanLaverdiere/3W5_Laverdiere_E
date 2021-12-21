@@ -23,6 +23,9 @@ body{
 h1, h2{
     color: #034638;
 }
+h1{
+    text-align: center;
+}
 
 table{
     max-width: 96%;
@@ -128,6 +131,7 @@ label[for=startTime]{
 #AccuWeather > *{
     border: 1px solid steelblue;
     background-color: #F1F1EF;
+    text-align: center;
 }
 
 #AccuWeatherLogo{
