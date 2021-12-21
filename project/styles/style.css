@@ -1,3 +1,4 @@
+/*#region GENERAL CSS*/
 *{
     box-sizing: border-box;
 }
@@ -54,6 +55,7 @@ tr.oddRow{
     background-color: darkcyan;
     color: white;
 }
+/*#endregion*/
 
 #routeSection{
     border: 3px solid blue;
