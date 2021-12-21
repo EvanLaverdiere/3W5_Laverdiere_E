@@ -297,7 +297,10 @@ async function fillRows(tBody, path, departureTime){
     }
 }
 
-// Revised version of above.
+// Asynchronous function which retrieves a schedule that best matches the user's desired time.
+// "startStation" represents the name of an REM station.
+// "stationSegment" is a number representing the segment of the REM network that the station is on. A station can be on more than one segment, hence its necessity.
+// "desiredTime" is a Date object representing the time at which the user wishes to depart.
 async function getDepartureTime(startStation, stationSegment, desiredTime){
     let response = await fetch("http://10.101.0.12:8080/schedule/" + startStation); // Retrieves an array of all schedules for this station, on all segments.
     let allSchedules = await response.json();
@@ -332,12 +335,13 @@ async function getDepartureTime(startStation, stationSegment, desiredTime){
         }
     }
 
+    // If a time was found,
     if(departureTime != null){
         console.log("Your starting time is " + departureTime);
         return departureTime;   // The chosen time is then returned to the caller.    
     }
     else{
-        throw("Your route passes through " + startStation + ". No departures from that station at or after the specified time.");
+        throw("Your route passes through " + startStation + ". No departures from that station at or after the specified time.");   // Otherwise, the function throws this exception.
     }
 }
 
