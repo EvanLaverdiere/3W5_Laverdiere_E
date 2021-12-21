@@ -31,6 +31,8 @@ console.log(submitBtn);
 
 submitBtn.addEventListener("click", planTrip);
 
+//#region REM API Functions
+
 // Function to asynchronously plan out a REM trip between two specified stations.
 async function planTrip(){
     event.preventDefault();
@@ -414,6 +416,7 @@ async function getNotifications(stationId){
         return "N/A";   // If the Notifications array is empty, function returns a string indication that no notifications are applicable for this station.
     }
 }
+//#endregion
 
 // Async function which retrieves data from an external API--in this case, AccuWeather--based on a passed postal code value.
 async function getExternalData(postalCode){
