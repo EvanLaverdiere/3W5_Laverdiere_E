@@ -2,14 +2,6 @@
 // WEB PROGRAMMING I, FALL 2021
 // FINAL PROJECT
 
-// class Station{
-//     //To be filled in once more details are available.
-//     constructor(stationId, name){
-//         this.stationId = stationId;
-//         this.name = name;
-//     }
-// }
-
 //#region Global Variables
 
 let startDestination = document.getElementById("startDestination");
@@ -22,12 +14,6 @@ let weatherHeader = document.getElementById("weatherHeader");
 let dayForecastDiv = document.getElementById("dayForecastDiv");
 let nightForecastDiv = document.getElementById("nightForecastDiv");
 let headlinesDiv = document.getElementById("headlinesDiv");
-
-// console.log(userRole);
-console.log(startDestination);
-console.log(endDestination);
-console.log(startTime);
-console.log(submitBtn);
 
 //#endregion
 
@@ -48,15 +34,9 @@ async function planTrip(){
         console.log("Starting station: " + startStation);
         console.log("Ending station: " + endStation);
         console.log("Departing at: " + desiredTime);
-
-        // let departureTime = await getDeparture(startStation, desiredTime);
-        // console.log(departureTime);
-        // // console.log("Type of Time property is " + typeof(departureTime[0].Time));   // These two lines show that both properties are registering as strings rather than any sort of date.
-        // console.log("Type of desiredTime is " + typeof(desiredTime));
     
         try {
             let tripPath = await getPath(startStation, endStation); // Start and end destinations are then passed to async function which generates a promise representing the path between these destinations.
-            // await displayPath(tripPath, desiredTime); // Function then calls a function to display details of the trip's path. 
             await displayPathV2(tripPath, desiredTime); // Function then calls a function to display details of the trip's path. 
             let endPostalCode = await getPostalCodeByName(endStation);  // Then it calls a function to retrieve a station's postal code by passing in the station's name.
             console.log(endPostalCode);
@@ -100,13 +80,9 @@ async function fillDestinationLists(stationsList){
 
         startDestination.add(startOption);  // The original object is added to one drop-down menu, and its clone is added to the other.
         endDestination.add(endOption);
-
-        // console.log(stationOption);
-
     }
 }
 let stationsList = getStations();
-// fillDestinationLists(stationsList);
 
 // Function which validates the user's input on the HTML form. Returns true if all fields are filled, or false otherwise.
 function validateForm(){
@@ -160,43 +136,6 @@ function trimTableRows(tBody){
         }
     }
 }
-
-// async function displayPath(path, departureTime){
-//     let pathSection = document.createElement("section");
-//     let psHeader = document.createElement("h2");
-//     psHeader.innerHTML = "Your Route:";
-//     pathSection.appendChild(psHeader);
-    
-//     let pathTable = document.createElement("table");
-//     let ptBody = document.createElement("tbody");
-//     let ptHeader = document.createElement("tr");
-//     let timeHeader = document.createElement("th");
-//     let stationHeader = document.createElement("th");
-//     let directionHeader = document.createElement("th");
-//     let extraHeader = document.createElement("th");
-//     let notifHeader = document.createElement("th");
-
-//     timeHeader.innerHTML = "Departure/Arrival Time";
-//     stationHeader.innerHTML = "Station";
-//     directionHeader.innerHTML = "Direction";
-//     extraHeader.innerHTML = "Information";
-//     notifHeader.innerHTML = "Notifications";
-//     ptHeader.appendChild(timeHeader);
-//     ptHeader.appendChild(stationHeader);
-//     ptHeader.appendChild(directionHeader);
-//     ptHeader.appendChild(extraHeader);
-//     ptHeader.appendChild(notifHeader);
-
-
-//     pathTable.appendChild(ptHeader);
-
-//     await fillRows(ptBody, path, departureTime);        
-
-
-//     pathTable.appendChild(ptBody);
-//     pathSection.appendChild(pathTable);
-//     document.body.appendChild(pathSection);
-// }
 
 // Asynchronous function which fills a passed table body element with rows of detailed information about stations.
 // "path" is an array of objects representing all the stations between two points of the REM network.
@@ -362,7 +301,6 @@ async function getDistance(lastStop, currentStop){
 
 // Async function to calculate travel time based on a passed distance and speed.
 function GetTravelTime(distance, speed){
-    // time = distance/speed
     let travelTime = distance / speed;
     let timeInMilliseconds = travelTime * (60 * 60 * 1000);
     console.log(travelTime + " hours equals " + timeInMilliseconds + " milliseconds.");
@@ -461,10 +399,11 @@ async function getNotifications(stationId){
 //#endregion
 
 //#region External API Functions
+
 // Async function which retrieves data from an external API--in this case, AccuWeather--based on a passed postal code value.
 async function getExternalData(postalCode){
-    let APIKey = "lPWmEWrO0gUAFIxqQcq9df4R06UtjXvD"; // Key which is needed to access the AccuWeather APIs. Without it, none of them will work. 
-    // IMPORTANT NOTE: Because my account with AccuWeather is the free version, these keys can only be used up to 50 times per day (or at least, that's what "50 calls/day" seems to mean.)
+    let APIKey = "[INSERT-YOUR-API-KEY-HERE]"; // Key which is needed to access the AccuWeather APIs. Without it, none of them will work. 
+
     let pSResponse = await fetch("http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + APIKey + "&q=" + postalCode);
     let AccuPostalCode = await pSResponse.json(); // resolves to an array containing a single complex object with detailed information about the specified postal code. Need this so we can grab a key from the object to get more information about the forecast for that location.
     console.log(AccuPostalCode);
@@ -497,9 +436,7 @@ async function getPostalCodeByName(stationName){
     if(desiredId != null){ // If the desired ID was found...
         desiredResponse = await fetch("http://10.101.0.12:8080/stations/" + desiredId); // ...the function fetches the corresponding station's in-depth data from the Stations API.
         let desiredArray = await desiredResponse.json(); // resolves to array with one element.
-        // console.log(desiredArray);
         let desiredStation = desiredArray[0];   // The station itself is stored in this variable.
-        // console.log(desiredStation);
         let postalCode = desiredStation.PostalCode; // The function then grabs the station's postal code and returns it to the caller.
 
         return postalCode;
