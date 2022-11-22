@@ -1,2 +1,6 @@
 # 3W5_Laverdiere_E
 Repository for final project of Fall 2021 Web Programming I course.
+
+For this project, we were required to design a website that would allow users to plan out trips on the (not yet open as of November 2022) [REM train network](https://rem.info/en). The website leverages an API designed by the course's instructor to asynchronously populate several dropdown menus with REM stations, allowing the user to select the start and end destinations for their trip. Once these have been selected, and a departure time has been entered, the website will generate a route for the user's trip, detailing each stop they will make along the way: the estimated departure or arrival time, the direction they were traveling, the station's address and city, whether or not the station has connections to other public transportation networks, and other assorted notifications. The site also leverages an external [AccuWeather](https://developer.accuweather.com/) API to provide a weather forecast for the user's intended destination.
+
+Please note that the REM API cannot be used without a connection to the John Abbott College VPN. Also note that an API key must be provided to make use of the AccuWeather functionality.
